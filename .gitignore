@@ -21,6 +21,7 @@ share/python-wheels/
 *.egg
 *.spec
 MANIFEST
+Gemfile
 
 # IDE settings
 .idea/
