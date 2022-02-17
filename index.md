@@ -6,3 +6,14 @@ CoNLL-U format.
 The functions to extract the occurrences from a treebank rely on the udapi
 Python package. The graphic interface is built using the GUI toolkit
 wxPython.
+
+___
+
+## Menu
+
+* [About](about.md)
+* [Download](download.md)
+* [User guide](user_guide.md)
+* [Contacts](contacts.md)
+
+___
