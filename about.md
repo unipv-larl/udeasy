@@ -1,5 +1,3 @@
-[Go back to home page](index.md)
-
 # About udeasy
 
 There are many tools designed for working with treebanks and websites
