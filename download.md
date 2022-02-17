@@ -6,4 +6,4 @@
 
 </div>
 
-[Download](https://unipv-larl.github.io/udeasy/.gitignore)
+https://unipv-larl.github.io/udeasy/.gitignore
