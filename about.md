@@ -1,3 +1,5 @@
+[Go back to home page](README.md)
+
 <div align="center">
 
 # About udeasy
@@ -21,7 +23,7 @@ user. They still need to be in the [CoNLL-U format](https://universaldependencie
 design of the query
 * there is no need to learn any query language
 
-udeasy is available for Windows and Linux distributions and it is licensed under a 
+udeasy is available for [Windows](download.md) and [Linux](download.md) distributions and it is licensed under a 
 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
 
 [![CC BY-NC-SA 4.0][cc-by-nc-sa-image]][cc-by-nc-sa]
