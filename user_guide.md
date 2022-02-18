@@ -25,9 +25,13 @@ When the user selects the conllu file containing the treebank they want to
 query, the path to the selected file appears on the main frame. The user
 can now press on the _Confirm button_.
 
-### Choosing the treebank file
+![main_frame2](img/main_frame2.png)
 
 ### Giving a name to the target nodes
+
+When clicking on the _Confirm button_, the nodes panel appears. The user
+here is asked to give a name to the nodes that are involved in the patterns
+they want to get from the treebank.
 
 ### Selecting the features for each target node
 
