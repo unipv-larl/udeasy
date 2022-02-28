@@ -21,7 +21,7 @@ class MainFrame(wx.Frame):
         self.relations = None
         self.positions = None
         self.treebank = None
-        super().__init__(parent=None, title='udeasy', size=(600, 400))
+        super().__init__(parent=None, title='udeasy', size=(800, 400))
         self.Bind(wx.EVT_CLOSE, self.on_close)
         self.main_panel = scrolled.ScrolledPanel(self)
         self.main_panel.SetAutoLayout(1)
@@ -105,8 +105,16 @@ class MainFrame(wx.Frame):
                 for i in feat_node_panel.ids:
                     feat_row = getattr(feat_node_panel, f"feat_row{i}")
                     key = feat_row.feat_field.GetValue()
+                    flag = feat_row.value_flag.GetValue()
+                    if flag == 'value is':
+                        f = True
+                    else:
+                        f = False
                     val = feat_row.value_field.GetValue()
-                    self.features[node][key] = val
+                    if f:
+                        self.features[node][key] = val
+                    else:
+                        self.features[node][key] = f'###NOT###{val}'
             setattr(self, "relations_panel", relations.Relations(self.main_panel, self.node_names))
             self.main_sizer.Add(getattr(self, "relations_panel"), 0, wx.ALL | wx.ALIGN_LEFT, 10)
             setattr(self, "btn_reset_relations", wx.Button(self.main_panel, label="Clear All"))
@@ -191,7 +199,7 @@ class MainFrame(wx.Frame):
         to_be_deleted = ['nodes_panel', 'feats_panel', 'relations_panel', 'positions_panel']
         btns = ["btn_reset_nodes", "btn_reset_feats", "btn_reset_relations", "btn_reset_positions",
                 "btn_nodes_panel", "btn_feats_panel", "btn_relations_panel", "btn_positions_panel"]
-        cbs = ["cb_title", "cb_sentences", "cb_conllu"]
+        cbs = ["cb_title", "cb_sentences", "cb_conllu", "cb_trees"]
         for attr in to_be_deleted + btns + cbs:
             if hasattr(self, attr):
                 getattr(self, attr).Destroy()

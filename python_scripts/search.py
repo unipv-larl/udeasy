@@ -53,6 +53,13 @@ def str2list(s):
         return [x.strip() for x in s[1:-1].split(',')]
 
 
+def convert(truth_value, change_value):
+    if change_value:
+        return not truth_value
+    else:
+        return truth_value
+
+
 def match_condition(node, c):
     """
     This function takes a node and a conditions_dict and checks whether the node match all the conditions
@@ -61,32 +68,39 @@ def match_condition(node, c):
     :return: True or False
     """
     for key in c:
+        raw_val = c[key]
+        if raw_val.startswith('###NOT###'):
+            change_value = True
+            val = raw_val[len('###NOT###'):]
+        else:
+            change_value = False
+            val = raw_val
         if not key:
             return True
         elif not hasattr(node, key):
             if key not in node.feats and key not in node.misc:
-                return False
-            elif isinstance(str2list(c[key]), list):
+                return convert(False, change_value)
+            elif isinstance(str2list(val), list):
                 if key in node.feats:
-                    if node.feats[key] not in c[key]:
-                        return False
+                    if node.feats[key] not in str2list(val):
+                        return convert(False, change_value)
                 else:
-                    if node.misc[key] not in c[key]:
-                        return False
+                    if node.misc[key] not in str2list(val):
+                        return convert(False, change_value)
             else:
                 if key in node.feats:
-                    if node.feats[key] != c[key]:
-                        return False
+                    if node.feats[key] != val:
+                        return convert(False, change_value)
                 else:
-                    if node.misc[key] != c[key]:
-                        return False
-        elif isinstance(str2list(c[key]), list):
-            if getattr(node, key) not in c[key]:
-                return False
+                    if node.misc[key] != val:
+                        return convert(False, change_value)
+        elif isinstance(str2list(val), list):
+            if getattr(node, key) not in str2list(val):
+                return convert(False, change_value)
         else:
-            if getattr(node, key) != c[key]:
-                return False
-    return True
+            if getattr(node, key) != val:
+                return convert(False, change_value)
+    return convert(True, change_value)
 
 
 def condition_matched(condition, bundle):
