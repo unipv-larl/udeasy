@@ -4,10 +4,10 @@ The files will be soon available
 
 ## Release 0.1.0
 
-## Ubuntu
+### Ubuntu
 
-[Download deb package]()
+[Download deb package](https://drive.google.com/uc?export=download&id=1hojhRZ8p6MdgwJxmoAY2-yVTqQFMuWNr)
 
-## Windows
+### Windows
 
-[Download udeasy installer]()
+[Download udeasy installer](https://drive.google.com/uc?export=download&id=1hBd4Uw0AA26wuM7miFjoY5EKAP38lW4T)
