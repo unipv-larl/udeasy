@@ -11,3 +11,7 @@ The files will be soon available
 ### Windows
 
 [Download udeasy installer](https://drive.google.com/uc?export=download&id=1hBd4Uw0AA26wuM7miFjoY5EKAP38lW4T)
+
+### MacOS
+
+[Download dmg file](https://drive.google.com/file/d/1Bdy13SfNhoCCxoZn0FrQpL8vxFEdt9HR)
