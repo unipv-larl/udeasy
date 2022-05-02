@@ -17,4 +17,4 @@ user. They still need to be in the [CoNLL-U format](https://universaldependencie
 design of the query
 * there is no need to learn any query language
 
-udeasy is available for Windows and Linux distributions (see the [download page](download.md)).
+udeasy is available for Windows, MacOS and Linux distributions (see the [download page](download.md)).
