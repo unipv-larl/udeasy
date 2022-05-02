@@ -1,6 +1,8 @@
 # Download udeasy
 
-The files will be soon available
+Latest release: 0.1.0
+
+Latest stable release: -
 
 ## Release 0.1.0
 
