@@ -15,6 +15,7 @@ class MainFrame(wx.Frame):
     Main frame class: shows the main frame of the app.
     """
     def __init__(self):
+        # defining the attributes of the main app
         self.file = None
         self.node_names = None
         self.features = None
@@ -29,6 +30,8 @@ class MainFrame(wx.Frame):
         self.main_sizer = wx.BoxSizer(wx.VERTICAL)
         title = wx.StaticText(self.main_panel, label="Welcome to udeasy")
         title.SetFont(wx.Font(20, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD))
+
+        # file chooser
         self.main_sizer.Add(title, 0, wx.ALL | wx.CENTER, 30)
         self.file_chooser = choose_file.ChooseFile(self.main_panel)
         self.main_sizer.Add(self.file_chooser, 0, wx.ALL | wx.ALIGN_LEFT, 10)
@@ -42,9 +45,12 @@ class MainFrame(wx.Frame):
         Function that runs when the confirm button in the main frame is pressed.
         It shows the panel to define the node names.
         """
+        # setting the attributes passed to the previous panel (file name and then conllu document)
+        setattr(self, "file", self.file_chooser.file_path)
+        setattr(self, "treebank", udapi.Document(self.file))
+
+        # if a nodes panel has not yet been shown, create one
         if not hasattr(self, "nodes_panel"):
-            setattr(self, "file", self.file_chooser.file_path)
-            setattr(self, "treebank", udapi.Document(self.file))
             setattr(self, "nodes_panel", nodes.Nodes(self.main_panel))
             self.main_sizer.Add(getattr(self, "nodes_panel"), 0, wx.ALL | wx.ALIGN_LEFT, 10)
             btns_sizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -65,19 +71,45 @@ class MainFrame(wx.Frame):
         Function that runs when the confirm button in the nodes panel is pressed.
         It shows the panel to define the nodes' features.
         """
+        # setting the attributes passed to the previous panel (node's names)
+        setattr(self, "node_names", [])
+        for i in self.nodes_panel.ids:
+            node_row = getattr(self.nodes_panel, f"node_row{i}")
+            self.node_names.append(getattr(node_row, "node_field").GetValue())
+
+        # extracting the keys of the feats and misc conllu fields
+        list_of_keys = []
+        for sent in self.treebank[:100]:
+            root = sent.get_tree()
+            nodes = root.descendants()
+            for n in nodes:
+                list_of_keys += list(n.feats.keys())
+                list_of_keys += list(n.misc.keys())
+        list_of_keys = list(set(list_of_keys))
+
+        # if a feats panel has not yet been shown, create one
         if not hasattr(self, "feats_panel"):
-            setattr(self, "node_names", [])
-            for i in self.nodes_panel.ids:
-                node_row = getattr(self.nodes_panel, f"node_row{i}")
-                self.node_names.append(getattr(node_row, "node_field").GetValue())
-            list_of_keys = []
-            for sent in self.treebank[:100]:
-                root = sent.get_tree()
-                nodes = root.descendants()
-                for n in nodes:
-                    list_of_keys += list(n.feats.keys())
-                    list_of_keys += list(n.misc.keys())
-            list_of_keys = list(set(list_of_keys))
+            setattr(self, "feats_panel", features.Features(self.main_panel, self.node_names, list_of_keys))
+            self.main_sizer.Add(getattr(self, "feats_panel"), 0, wx.ALL | wx.ALIGN_LEFT, 10)
+            setattr(self, "btn_reset_feats", wx.Button(self.main_panel, label="Clear All"))
+            self.btn_reset_feats.Bind(wx.EVT_BUTTON, self.reset)
+            btns_sizer = wx.BoxSizer(wx.HORIZONTAL)
+            setattr(self, "btn_feats_panel", wx.Button(self.main_panel, label="Confirm"))
+            self.btn_feats_panel.Bind(wx.EVT_BUTTON, self.show_relations_panel)
+            btns_sizer.Add(self.btn_feats_panel, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+            btns_sizer.Add(self.btn_reset_feats, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+            self.main_sizer.Add(btns_sizer, 0, wx.ALL | wx.ALIGN_CENTER, 5)
+            self.main_panel.SetSizer(self.main_sizer)
+            self.main_panel.Layout()
+            self.main_panel.SetupScrolling(scrollToTop=False)
+            self.main_panel.Scroll(-1, self.main_panel.GetScrollRange(wx.VERTICAL))
+        else:
+            # destroyng the feats panel and its buttons
+            getattr(self, "feats_panel").Destroy()
+            getattr(self, "btn_feats_panel").Destroy()
+            getattr(self, "btn_reset_feats").Destroy()
+
+            # recreating the feats panel
             setattr(self, "feats_panel", features.Features(self.main_panel, self.node_names, list_of_keys))
             self.main_sizer.Add(getattr(self, "feats_panel"), 0, wx.ALL | wx.ALIGN_LEFT, 10)
             setattr(self, "btn_reset_feats", wx.Button(self.main_panel, label="Clear All"))
