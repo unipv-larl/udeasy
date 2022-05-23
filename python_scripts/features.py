@@ -7,6 +7,7 @@ class Features(wx.Panel):
     """
     def __init__(self, parent, node_names, list_of_keys):
         self.parent = parent
+        self.node_names = node_names
         self.choices = ['form', 'lemma', 'upos', 'xpos', 'deprel'] + sorted(list_of_keys)
         wx.Panel.__init__(self, parent)
         self.main_sizer = wx.BoxSizer(wx.VERTICAL)

@@ -82,7 +82,7 @@ class MainFrame(wx.Frame):
                 list_of_keys += list(n.feats.keys())
                 list_of_keys += list(n.misc.keys())
         list_of_keys = list(set(list_of_keys))
-        # TODO: show feats panel
+
         if not hasattr(self, "feats_panel"):
             # showing feats panel
             setattr(self, "feats_panel", features.Features(self.main_panel, self.node_names, list_of_keys))
@@ -108,20 +108,99 @@ class MainFrame(wx.Frame):
             cb_sizer.Add(self.cb_trees, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
             self.main_sizer.Add(cb_sizer, 0, wx.ALL | wx.ALIGN_CENTER, 5)
 
+            # adding the buttons to the main frame
+            btns_sizer = wx.BoxSizer(wx.HORIZONTAL)
+            setattr(self, "btn_reset", wx.Button(self.main_panel, label="Clear All"))
+            self.btn_reset.Bind(wx.EVT_BUTTON, self.reset)
+            setattr(self, "btn_submit", wx.Button(self.main_panel, label="Submit query"))
+            self.btn_submit.Bind(wx.EVT_BUTTON, self.search)
+            btns_sizer.Add(self.btn_submit, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+            btns_sizer.Add(self.btn_reset, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+            self.main_sizer.Add(btns_sizer, 0, wx.ALL | wx.ALIGN_CENTER, 5)
+
             self.main_panel.SetSizer(self.main_sizer)
             self.main_panel.Layout()
             self.main_panel.SetupScrolling(scrollToTop=False)
             self.main_panel.Scroll(-1, self.main_panel.GetScrollRange(wx.VERTICAL))
-            # TODO: add buttons to confirm and import query file
-            # TODO: process inputs
 
-        else:
-            # TODO: delete all the panels and buttons
-            # TODO: show everything again
-            pass
+        # if something changes in the nodes panel
+        elif hasattr(self, "feats_panel") and self.feats_panel.node_names != self.node_names:
+            # clearing the main frame from everything except the nodes panel
+            self.reset(event, delete_everything=False)
 
-    def reset(self, event):
+            # showing feats panel
+            setattr(self, "feats_panel", features.Features(self.main_panel, self.node_names, list_of_keys))
+            self.main_sizer.Add(getattr(self, "feats_panel"), 0, wx.ALL | wx.ALIGN_LEFT, 10)
+
+            # showing relations panel
+            setattr(self, "relations_panel", relations.Relations(self.main_panel, self.node_names))
+            self.main_sizer.Add(getattr(self, "relations_panel"), 0, wx.ALL | wx.ALIGN_LEFT, 10)
+
+            # showing positions panel
+            setattr(self, "positions_panel", positions.Positions(self.main_panel, self.node_names))
+            self.main_sizer.Add(getattr(self, "positions_panel"), 0, wx.ALL | wx.ALIGN_LEFT, 10)
+
+            # visualizing options
+            cb_sizer = wx.BoxSizer(wx.HORIZONTAL)
+            setattr(self, "cb_title", wx.StaticText(self.main_panel, label="Visualize:"))
+            setattr(self, "cb_sentences", wx.CheckBox(self.main_panel, label="conllu sentences"))
+            setattr(self, "cb_conllu", wx.CheckBox(self.main_panel, label="conllu matched nodes"))
+            setattr(self, "cb_trees", wx.CheckBox(self.main_panel, label="trees"))
+            cb_sizer.Add(self.cb_title, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+            cb_sizer.Add(self.cb_sentences, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+            cb_sizer.Add(self.cb_conllu, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+            cb_sizer.Add(self.cb_trees, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+            self.main_sizer.Add(cb_sizer, 0, wx.ALL | wx.ALIGN_CENTER, 5)
+
+            # adding the buttons to the main frame
+            btns_sizer = wx.BoxSizer(wx.HORIZONTAL)
+            setattr(self, "btn_reset", wx.Button(self.main_panel, label="Clear All"))
+            self.btn_reset.Bind(wx.EVT_BUTTON, self.reset)
+            setattr(self, "btn_submit", wx.Button(self.main_panel, label="Submit query"))
+            self.btn_submit.Bind(wx.EVT_BUTTON, self.search)
+            btns_sizer.Add(self.btn_submit, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+            btns_sizer.Add(self.btn_reset, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+            self.main_sizer.Add(btns_sizer, 0, wx.ALL | wx.ALIGN_CENTER, 5)
+
+            self.main_panel.SetSizer(self.main_sizer)
+            self.main_panel.Layout()
+            self.main_panel.SetupScrolling(scrollToTop=False)
+            self.main_panel.Scroll(-1, self.main_panel.GetScrollRange(wx.VERTICAL))
+
+    def search(self, event):
         pass
+
+    def reset(self, event, delete_everything=True):
+        to_be_deleted = ['feats_panel', 'relations_panel', 'positions_panel']
+        btns = ["btn_reset", "btn_submit"]
+        cbs = ["cb_title", "cb_sentences", "cb_conllu", "cb_trees"]
+        if delete_everything:
+            to_be_deleted += ['nodes_panel']
+            btns += ['btn_nodes_panel', 'btn_reset_nodes']
+        for attr in to_be_deleted + btns + cbs:
+            if hasattr(self, attr):
+                getattr(self, attr).Destroy()
+                delattr(self, attr)
+        if delete_everything:
+            setattr(self, "file", self.file_chooser.file_path)
+            setattr(self, "treebank", udapi.Document(self.file))
+
+            # if a nodes panel has not yet been shown, create one
+            if not hasattr(self, "nodes_panel"):
+                setattr(self, "nodes_panel", nodes.Nodes(self.main_panel))
+                self.main_sizer.Add(getattr(self, "nodes_panel"), 0, wx.ALL | wx.ALIGN_LEFT, 10)
+                btns_sizer = wx.BoxSizer(wx.HORIZONTAL)
+                setattr(self, "btn_nodes_panel", wx.Button(self.main_panel, label="Confirm"))
+                self.btn_nodes_panel.Bind(wx.EVT_BUTTON, self.show_other_panels)
+                setattr(self, "btn_reset_nodes", wx.Button(self.main_panel, label="Clear All"))
+                self.btn_reset_nodes.Bind(wx.EVT_BUTTON, self.reset)
+                btns_sizer.Add(self.btn_nodes_panel, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+                btns_sizer.Add(self.btn_reset_nodes, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+                self.main_sizer.Add(btns_sizer, 0, wx.ALL | wx.ALIGN_CENTER, 5)
+                self.main_panel.SetSizer(self.main_sizer)
+                self.main_panel.Layout()
+                self.main_panel.SetupScrolling(scrollToTop=False)
+                self.main_panel.Scroll(-1, self.main_panel.GetScrollRange(wx.VERTICAL))
 
     def on_close(self, event):
         wx.Exit()
@@ -131,4 +210,5 @@ if __name__ == '__main__':
     app = wx.App()
     frame = MainFrame()
     frame.Show()
+    frame.Maximize()
     app.MainLoop()
