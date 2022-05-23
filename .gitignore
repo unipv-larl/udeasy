@@ -28,6 +28,7 @@ MANIFEST
 # executable folders temp
 ubuntu64/
 win32/
+MacOS/
 
-# various files
+# miscellaneous files
 misc_files/
