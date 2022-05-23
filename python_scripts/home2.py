@@ -218,6 +218,7 @@ class MainFrame(wx.Frame):
         setattr(self, "res_frame", results.ResultsFrame(self, self.res))
 
     def reset(self, event, delete_everything=True):
+        # defining the lists of objects to be deleted
         to_be_deleted = ['feats_panel', 'relations_panel', 'positions_panel']
         btns = ["btn_reset", "btn_submit"]
         cbs = ["cb_title", "cb_sentences", "cb_conllu", "cb_trees"]
@@ -232,7 +233,7 @@ class MainFrame(wx.Frame):
             setattr(self, "file", self.file_chooser.file_path)
             setattr(self, "treebank", udapi.Document(self.file))
 
-            # if a nodes panel has not yet been shown, create one
+            # recreating the nodes panel
             if not hasattr(self, "nodes_panel"):
                 setattr(self, "nodes_panel", nodes.Nodes(self.main_panel))
                 self.main_sizer.Add(getattr(self, "nodes_panel"), 0, wx.ALL | wx.ALIGN_LEFT, 10)
