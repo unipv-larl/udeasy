@@ -168,7 +168,54 @@ class MainFrame(wx.Frame):
             self.main_panel.Scroll(-1, self.main_panel.GetScrollRange(wx.VERTICAL))
 
     def search(self, event):
-        pass
+        # creating the feats dict
+        setattr(self, "features", {n: {} for n in self.node_names})
+        for node in self.features:
+            feat_node_panel = getattr(self.feats_panel, f"node_panel_{node}")
+            for i in feat_node_panel.ids:
+                feat_row = getattr(feat_node_panel, f"feat_row{i}")
+                key = feat_row.feat_field.GetValue()
+                flag = feat_row.value_flag.GetValue()
+                if flag == 'value is':
+                    f = True
+                else:
+                    f = False
+                val = feat_row.value_field.GetValue()
+                if f:
+                    self.features[node][key] = val
+                else:
+                    self.features[node][key] = f'###NOT###{val}'
+
+        # creating the relations list
+        setattr(self, "relations", [])
+        for i in getattr(self.relations_panel, "ids"):
+            rel_row = getattr(self.relations_panel, f"rel_row{i}")
+            r = {}
+            r['node1'] = rel_row.node1.GetValue()
+            r['rel'] = rel_row.rel.GetValue()
+            r['node2'] = rel_row.node2.GetValue()
+            self.relations.append(r)
+
+        # creating the positions list
+        setattr(self, "positions", [])
+        for i in getattr(self.positions_panel, "ids"):
+            pos_row = getattr(self.positions_panel, f"pos_row{i}")
+            p = {}
+            p['node1'] = pos_row.node1.GetValue()
+            p['rel'] = pos_row.rel.GetValue()
+            p['node2'] = pos_row.node2.GetValue()
+            p['by'] = pos_row.by.GetValue()
+            p['dist'] = pos_row.pos.GetValue()
+            self.positions.append(p)
+
+        # results object
+        setattr(self, "res", search.QueryResults())
+        self.res.process(tb=self.treebank, features=self.features, relations=self.relations,
+                         positions=self.positions, show_sent=self.cb_sentences.GetValue(),
+                         show_conllu=self.cb_conllu.GetValue(), show_trees=self.cb_trees.GetValue())
+
+        # show results
+        setattr(self, "res_frame", results.ResultsFrame(self, self.res))
 
     def reset(self, event, delete_everything=True):
         to_be_deleted = ['feats_panel', 'relations_panel', 'positions_panel']
