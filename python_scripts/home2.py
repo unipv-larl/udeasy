@@ -84,13 +84,51 @@ class MainFrame(wx.Frame):
         list_of_keys = list(set(list_of_keys))
         # TODO: show feats panel
         if not hasattr(self, "feats_panel"):
-            pass
-            # TODO: show relations panel
-            # TODO: show positions panel
+            # showing feats panel
+            setattr(self, "feats_panel", features.Features(self.main_panel, self.node_names, list_of_keys))
+            self.main_sizer.Add(getattr(self, "feats_panel"), 0, wx.ALL | wx.ALIGN_LEFT, 10)
+
+            # showing relations panel
+            setattr(self, "relations_panel", relations.Relations(self.main_panel, self.node_names))
+            self.main_sizer.Add(getattr(self, "relations_panel"), 0, wx.ALL | wx.ALIGN_LEFT, 10)
+
+            # showing positions panel
+            setattr(self, "positions_panel", positions.Positions(self.main_panel, self.node_names))
+            self.main_sizer.Add(getattr(self, "positions_panel"), 0, wx.ALL | wx.ALIGN_LEFT, 10)
+
+            # visualizing options
+            cb_sizer = wx.BoxSizer(wx.HORIZONTAL)
+            setattr(self, "cb_title", wx.StaticText(self.main_panel, label="Visualize:"))
+            setattr(self, "cb_sentences", wx.CheckBox(self.main_panel, label="conllu sentences"))
+            setattr(self, "cb_conllu", wx.CheckBox(self.main_panel, label="conllu matched nodes"))
+            setattr(self, "cb_trees", wx.CheckBox(self.main_panel, label="trees"))
+            cb_sizer.Add(self.cb_title, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+            cb_sizer.Add(self.cb_sentences, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+            cb_sizer.Add(self.cb_conllu, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+            cb_sizer.Add(self.cb_trees, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+            self.main_sizer.Add(cb_sizer, 0, wx.ALL | wx.ALIGN_CENTER, 5)
+
+            self.main_panel.SetSizer(self.main_sizer)
+            self.main_panel.Layout()
+            self.main_panel.SetupScrolling(scrollToTop=False)
+            self.main_panel.Scroll(-1, self.main_panel.GetScrollRange(wx.VERTICAL))
             # TODO: add buttons to confirm and import query file
-            # TODO: add ticks for visualizing results
+            # TODO: process inputs
 
         else:
             # TODO: delete all the panels and buttons
             # TODO: show everything again
             pass
+
+    def reset(self, event):
+        pass
+
+    def on_close(self, event):
+        wx.Exit()
+
+
+if __name__ == '__main__':
+    app = wx.App()
+    frame = MainFrame()
+    frame.Show()
+    app.MainLoop()
