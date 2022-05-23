@@ -53,7 +53,7 @@ class FeatRow(wx.Panel):
         wx.Panel.__init__(self, parent)
         self.main_sizer = wx.BoxSizer(wx.HORIZONTAL)
         f_text = wx.StaticText(self, label="feature")
-        setattr(self, f"feat_field", wx.ComboBox(self, choices=self.parent.parent.choices))
+        setattr(self, f"feat_field", wx.ComboBox(self, choices=self.parent.parent.choices, value=''))
         setattr(self, "value_flag", wx.ComboBox(self, value='value is', choices=['value is', 'value is not']))
         setattr(self, f"value_field", wx.TextCtrl(self))
         btn_add = wx.Button(self, label='+')
