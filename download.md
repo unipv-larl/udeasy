@@ -7,7 +7,7 @@ Latest stable release: -
 ---
 
 
-## Release 0.1.1
+## Release 0.1.1 (soon available)
 
 ### Ubuntu (soon available)
 
