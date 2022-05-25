@@ -1,21 +1,21 @@
 # Download udeasy
 
-Latest release: 0.1.0
+Latest release: 0.1.1
 
 Latest stable release: -
 
 ---
 
 
-## Release 0.1.1 (soon available)
+## Release 0.1.1
 
-### Ubuntu (soon available)
+### Ubuntu
 
-[Download deb package]()
+[Download deb package](https://github.com/unipv-larl/udeasy/releases/download/v0.1.1/udeasy_0.1.1-1_amd64.deb)
 
-### Windows (soon available)
+### Windows
 
-[Download udeasy installer]()
+[Download udeasy installer](https://github.com/unipv-larl/udeasy/releases/download/v0.1.1/udeasy-0.1.1-installer.exe)
 
 ### MacOS (soon available)
 
