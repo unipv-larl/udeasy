@@ -17,9 +17,9 @@ Latest stable release: -
 
 [Download udeasy installer](https://github.com/unipv-larl/udeasy/releases/download/v0.1.1/udeasy-0.1.1-installer.exe)
 
-### MacOS (soon available)
+### MacOS
 
-[Download dmg file]()
+[Download dmg file](https://github.com/unipv-larl/udeasy/releases/download/v0.1.1/udeasy-0.1.1.dmg)
 
 
 ---
