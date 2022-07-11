@@ -18,6 +18,25 @@ ___
 
 ___
 
+## Cite this work
+
+Brigada Villa, Luca. 2022. UDeasy: a Tool for Querying Treebanks in CoNLL-U Format. In _Proceedings of the Workshop on Challenges in the Management of Large Corpora (CMLC-10)_, pages 16--19, Marseille, France. European Language Resources Association.
+
+```bibtex
+@InProceedings{brigadavilla:2022:CMLC10,
+  author    = {Brigada Villa, Luca},
+  title     = {UDeasy: a Tool for Querying Treebanks in CoNLL-U Format},
+  booktitle      = {Proceedings of the Workshop on Challenges in the Management of Large Corpora (CMLC-10)},
+  month          = {June},
+  year           = {2022},
+  address        = {Marseille, France},
+  publisher      = {European Language Resources Association},
+  pages     = {16--19},
+  abstract  = {Many tools are available to query a dependency treebank, but they require the users to know a query language. In this paper I present UDeasy, an application whose main goal is to allow the users to easily query and extract patterns from a dependency treebank in CoNLL-U format.},
+  url       = {https://aclanthology.org/2022.cmlc10-1.3}
+}
+```
+
 ## License
 
 udeasy is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
