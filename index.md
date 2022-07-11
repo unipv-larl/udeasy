@@ -37,6 +37,8 @@ Brigada Villa, Luca. 2022. UDeasy: a Tool for Querying Treebanks in CoNLL-U Form
 }
 ```
 
+___
+
 ## License
 
 udeasy is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
