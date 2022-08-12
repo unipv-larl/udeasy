@@ -18,6 +18,11 @@ ___
 
 ___
 
+## Download the paper
+
+Click [here](http://www.lrec-conf.org/proceedings/lrec2022/workshops/CMLC10/pdf/2022.cmlc10-1.3.pdf) to download the paper and don't forget to cite it!
+___
+
 ## Cite this work
 
 Brigada Villa, Luca. 2022. UDeasy: a Tool for Querying Treebanks in CoNLL-U Format. In _Proceedings of the Workshop on Challenges in the Management of Large Corpora (CMLC-10)_, pages 16--19, Marseille, France. European Language Resources Association.
