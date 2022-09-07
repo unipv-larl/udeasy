@@ -1,8 +1,10 @@
 # Contacts
 
-## Luca Brigada Villa
+## [Luca Brigada Villa](bavagliladri.github.io)
 
-email: [luca.brigadavilla@unibg.it](mailto:luca.brigadavilla@unibg.it)
+If you have any suggestion on how to improve UDeasy, please write me!
+
+@icn-camera [luca.brigadavilla@unibg.it](mailto:luca.brigadavilla@unibg.it)
 
 GitHub: [bavagliladri](https://github.com/bavagliladri)
 
