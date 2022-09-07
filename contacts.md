@@ -4,7 +4,7 @@
 
 If you have any suggestion on how to improve UDeasy, please write me!
 
-@icn-camera [luca.brigadavilla@unibg.it](mailto:luca.brigadavilla@unibg.it)
+:envelope: [luca.brigadavilla@unibg.it](mailto:luca.brigadavilla@unibg.it)
 
 GitHub: [bavagliladri](https://github.com/bavagliladri)
 
