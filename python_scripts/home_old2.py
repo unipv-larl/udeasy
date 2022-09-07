@@ -46,11 +46,7 @@ class MainFrame(wx.Frame):
         It shows the panel to define the node names.
         """
         # setting the attributes passed to the previous panel (file name and then conllu document)
-        if hasattr(self.file_chooser, "file_path"):
-            setattr(self, "file", self.file_chooser.file_path)
-        else:
-            setattr(self.file_chooser, "file_path", "/home/bavagliladri/UD_Latin-PROIEL.conllu")
-            setattr(self, "file", self.file_chooser.file_path)
+        setattr(self, "file", self.file_chooser.file_path)
         setattr(self, "treebank", udapi.Document(self.file))
 
         # if a nodes panel has not yet been shown, create one
@@ -72,12 +68,10 @@ class MainFrame(wx.Frame):
 
     def show_other_panels(self, event):
         # setting the attributes passed to the previous panel (node's names)
-        # setting node_names as a dict {'name': True|False according to the value of the optional checkbox}
-        self.node_names = {}
+        setattr(self, "node_names", [])
         for i in self.nodes_panel.ids:
             node_row = getattr(self.nodes_panel, f"node_row{i}")
-            self.node_names[getattr(node_row, "node_field").GetValue()] = getattr(node_row, "cb_optional").GetValue()
-            print(self.node_names)
+            self.node_names.append(getattr(node_row, "node_field").GetValue())
 
         # extracting the keys of the feats and misc conllu fields
         list_of_keys = []
@@ -91,15 +85,15 @@ class MainFrame(wx.Frame):
 
         if not hasattr(self, "feats_panel"):
             # showing feats panel
-            setattr(self, "feats_panel", features.Features(self.main_panel, list(self.node_names.keys()), list_of_keys))
+            setattr(self, "feats_panel", features.Features(self.main_panel, self.node_names, list_of_keys))
             self.main_sizer.Add(getattr(self, "feats_panel"), 0, wx.ALL | wx.ALIGN_LEFT, 10)
 
             # showing relations panel
-            setattr(self, "relations_panel", relations.Relations(self.main_panel, list(self.node_names.keys())))
+            setattr(self, "relations_panel", relations.Relations(self.main_panel, self.node_names))
             self.main_sizer.Add(getattr(self, "relations_panel"), 0, wx.ALL | wx.ALIGN_LEFT, 10)
 
             # showing positions panel
-            setattr(self, "positions_panel", positions.Positions(self.main_panel, list(self.node_names.keys())))
+            setattr(self, "positions_panel", positions.Positions(self.main_panel, self.node_names))
             self.main_sizer.Add(getattr(self, "positions_panel"), 0, wx.ALL | wx.ALIGN_LEFT, 10)
 
             # visualizing options
@@ -135,15 +129,15 @@ class MainFrame(wx.Frame):
             self.reset(event, delete_everything=False)
 
             # showing feats panel
-            setattr(self, "feats_panel", features.Features(self.main_panel, list(self.node_names.keys()), list_of_keys))
+            setattr(self, "feats_panel", features.Features(self.main_panel, self.node_names, list_of_keys))
             self.main_sizer.Add(getattr(self, "feats_panel"), 0, wx.ALL | wx.ALIGN_LEFT, 10)
 
             # showing relations panel
-            setattr(self, "relations_panel", relations.Relations(self.main_panel, list(self.node_names.keys())))
+            setattr(self, "relations_panel", relations.Relations(self.main_panel, self.node_names))
             self.main_sizer.Add(getattr(self, "relations_panel"), 0, wx.ALL | wx.ALIGN_LEFT, 10)
 
             # showing positions panel
-            setattr(self, "positions_panel", positions.Positions(self.main_panel, list(self.node_names.keys())))
+            setattr(self, "positions_panel", positions.Positions(self.main_panel, self.node_names))
             self.main_sizer.Add(getattr(self, "positions_panel"), 0, wx.ALL | wx.ALIGN_LEFT, 10)
 
             # visualizing options
@@ -191,7 +185,6 @@ class MainFrame(wx.Frame):
                     self.features[node][key] = val
                 else:
                     self.features[node][key] = f'###NOT###{val}'
-            self.features[node]['optional'] = self.node_names[node]
 
         # creating the relations list
         setattr(self, "relations", [])
