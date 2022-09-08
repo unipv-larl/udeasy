@@ -1,21 +1,16 @@
-# How to use udeasy
+# How to use UDeasy
 
-## Download udeasy
+## Download UDeasy
 
 Go to the [download page](download.md).
 
-## Install udeasy
-
-udeasy does not need any installation process. Double-click on the executable that you downloaded
-and use it!
-
 ## Tutorial
 
-Now we will see how to use udeasy.
+Now we will see how to use UDeasy.
 
 ### The main frame
 
-When opening udeasy, a window like the one in the picture appears.
+When opening UDeasy, a window like the one in the picture appears.
 
 ![main_frame](img/main_frame.png)
 
@@ -56,6 +51,10 @@ values that have to be matched. If the user enters a value, then the feature
 must have that exact value for the node; if more values are passed, they
 have to be written between squared brackets and separated by commas. If
 the feature has one of those values, then the node is included in the results.
+
+The user can also exclude from the results those nodes that match a certain value
+(or group of values) selecting the `value is not` option from the dropdown menu in
+between the feature menu and the feature value.
 
 In the feature dropdown menu the user will find all the conllu field and some of
 the sub-features of `feats` and `misc`: if they want to look for a sub-feature not
@@ -159,5 +158,10 @@ of those features.
 ##### Example
 
 ![stats_panel](img/stats_panel.png)
+*The stats panel*
 
-![stats_res](img/stats_res.png)
+![stats_res](img/stats_res1.png)
+*The results of the `Word order` and `Distance` queries*
+
+![stats_res](img/stats_res2.png)
+*At the bottom of the page, the result of the `Features distributions` query*
