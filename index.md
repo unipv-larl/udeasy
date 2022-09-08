@@ -1,6 +1,6 @@
-# udeasy
+# UDeasy
 
-Udeasy is an application written in Python 3 whose main goal is to allow
+UDeasy is an application written in Python 3 whose main goal is to allow
 the user to easily query a treebank and extract patterns from a treebank in
 CoNLL-U format.
 The functions to extract the occurrences from a treebank rely on the udapi
@@ -47,7 +47,7 @@ ___
 
 ## License
 
-udeasy is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
+UDeasy is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
 
 [![CC BY-NC-SA 4.0][cc-by-nc-sa-image]][cc-by-nc-sa]
 
