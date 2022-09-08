@@ -2,10 +2,17 @@
 
 ## [Luca Brigada Villa](bavagliladri.github.io)
 
-If you have any suggestion on how to improve UDeasy, please write me!
+| | |
+|---|---|
+| **Email** | [luca.brigadavilla@unibg.it](mailto:luca.brigadavilla@unibg.it) |
+| **GitHub profile** | [bavagliladri](https://github.com/bavagliladri) |
+| **Twitter** | [@bavagliladri](https://twitter.com/bavagliladri) |
 
-:envelope: [luca.brigadavilla@unibg.it](mailto:luca.brigadavilla@unibg.it)
+### Suggestions
 
-GitHub: [bavagliladri](https://github.com/bavagliladri)
+If you have any suggestion on how to improve UDeasy, please contact me!
 
-Twitter: [@bavagliladri](https://twitter.com/bavagliladri)
+I'm currently working on adding these features to the tool:
+
+- optional nodes
+- export/import the query
