@@ -27,6 +27,7 @@ class QueryResults:
         """
         for sentence in tb:
             self.count['number of sentences'] += 1
+            print(self.count['number of sentences'])
             sent_res = sent_results(sentence, features, relations, positions)
             if sent_res:
                 self.count['matched sentences'] += 1
@@ -273,9 +274,23 @@ def sent_results(sentence, features, relations, positions):
     optional_query = optional.get_optional_queries(features)
     # extracting cores
     cores = process_sent(sentence, core_query, adapted_core_relations, adapted_core_positions)
-    for core in cores:
-        # TODO
-        pass
-    # for each core:
-    #   looking for optional nodes
-    #   add the core + (optional) to the results
+    if optional_query:
+        results = []
+        for core in cores:
+            core_results = []
+            queries_list = optional.get_queries_list(core_query, optional_query)
+            while queries_list:
+                focus_query = queries_list[0]
+                queries_list.pop(0)
+                focus_relations = optional.adapt_condition_list(focus_query, relations)
+                focus_positions = optional.adapt_condition_list(focus_query, positions)
+                focus_results = process_sent(sentence, focus_query, focus_relations, focus_positions)
+                if focus_results:
+                    core_results += focus_results
+                    optional.remove_queries_from_list(queries_list, focus_query)
+            if not core_results:
+                core_results.append(core)
+            results += core_results
+    else:
+        results = cores.copy()
+    return results
