@@ -1,6 +1,8 @@
 import io
 import itertools
 import sys
+import printer
+import optional
 
 
 class QueryResults:
@@ -31,15 +33,15 @@ class QueryResults:
                 self.count['matched patterns'] += len(sent_res)
                 self.results += sent_res
                 if show_sent:
-                    self.string += sent_to_conllu(sentence) + '\n'
+                    self.string += printer.sent_to_conllu(sentence) + '\n'
                 else:
-                    self.string += get_metadata(sentence) + '\n'
+                    self.string += printer.get_metadata(sentence) + '\n'
                 if show_trees:
                     sys.stdout = io.StringIO()
                     sentence.draw(color=None, print_sent_id=False, print_doc_meta=False, print_text=False, indent=2)
                     self.string += sys.stdout.getvalue()
                 sys.stdout = sys.__stdout__
-                self.string += str_results(sent_res, show_conllu) + '\n\n'
+                self.string += printer.str_results(sent_res, show_conllu) + '\n\n'
 
 
 def str2list(s):
@@ -54,10 +56,7 @@ def str2list(s):
 
 
 def convert(truth_value, change_value):
-    if change_value:
-        return not truth_value
-    else:
-        return truth_value
+    return truth_value == change_value
 
 
 def match_condition(node, c):
@@ -258,61 +257,18 @@ def filter_candidates_positions(pos_list, candidates):
     return result
 
 
-def node_to_conllu(node):
-    """
-    This function takes a node as argument and returns a string corresponding to the token in the conllu format
-    :param node: the node
-    :return: the string in the conllu format
-    """
-    return f'{node._ord}\t{node.form}\t{node.lemma}\t{node.upos}\t{node.xpos}\t{str(node.feats)}' \
-           f'\t{node._parent._ord}\t{node.deprel}\t{node._raw_deps}\t{str(node.misc)}'
-
-
-def get_metadata(sent):
-    """
-    This function takes a sentence as argument and returns the string containing the metadata
-    :param sent: the sentence
-    :return: the string containing the metadata (text and sent_id)
-    """
-    root = sent.get_tree()
-    return f'# text = {root.get_sentence()}\n' \
-           f'# sent_id = {root._sent_id}\n'
-
-
-def sent_to_conllu(sent):
-    """
-    This function takes a sentence as argument and returns a string corresponding to the sentence in the conllu format
-    :param sent: the sentence
-    :return: the string
-    """
-    root = sent.get_tree()
-    nodes = root.descendants()
-    string = get_metadata(sent)
-    for node in nodes:
-        string += f'{node_to_conllu(node)}\n'
-    return string
-
-
-def str_results(results, conllu=True):
-    """
-    This function takes as argument the list containing the results and returns them in a string
-    :param results: the list containig the results
-    :param conllu: if True, returns the matched tokens in conllu format, otherwise it prints only the word-form
-    :return: the string
-    """
-    string = ''
-    for res in results:
-        for node in res:
-            if conllu:
-                string += f'{node}: {node_to_conllu(res[node])}\n'
-            else:
-                string += f'{node}: {res[node].form}\n'
-        string += '\n'
-    return string
-
-
 def sent_results(sentence, features, relations, positions):
+    # TODO rewrite everithing
     candidates1 = get_candidates_features(features, sentence)
     candidates2 = filter_candidates_relations(relations, candidates1)
     results = filter_candidates_positions(positions, candidates2)
     return results
+
+
+# TODO adapt everithing to the new dictionary
+
+'''
+Algorithm:
+1. get a list of cores matching the queries of the non optional nodes
+2. for each core, check if a set of optional nodes can be added to the pattern (starting from the largest set)
+'''

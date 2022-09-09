@@ -77,7 +77,6 @@ class MainFrame(wx.Frame):
         for i in self.nodes_panel.ids:
             node_row = getattr(self.nodes_panel, f"node_row{i}")
             self.node_names[getattr(node_row, "node_field").GetValue()] = getattr(node_row, "cb_optional").GetValue()
-            print(self.node_names)
 
         # extracting the keys of the feats and misc conllu fields
         list_of_keys = []
