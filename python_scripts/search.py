@@ -294,3 +294,7 @@ def sent_results(sentence, features, relations, positions):
     else:
         results = cores.copy()
     return results
+
+# TODO fare in modo di controllare i nodi del core quando fa la prima selezione dei candidates
+
+# TODO riposati che non ce la fai più
