@@ -41,10 +41,6 @@ class NodeRow(wx.Panel):
             btn_rmv = wx.Button(self, label='-')
             btn_rmv.Bind(wx.EVT_BUTTON, self.on_rmv)
             self.main_sizer.Add(btn_rmv, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-        if parent.count == 1:
-            self.main_sizer.AddSpacer(95)
-        setattr(self, "cb_optional", wx.CheckBox(self, label="optional"))
-        self.main_sizer.Add(getattr(self, "cb_optional"), 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
         self.SetSizer(self.main_sizer)
         self.Layout()
 
