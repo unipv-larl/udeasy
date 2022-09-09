@@ -1,7 +1,7 @@
 import itertools
 
 
-def get_core_nodes(features):
+def get_core_queries(features):
     core_q = {}
     for n in features:
         if not features[n]['optional']:
@@ -10,7 +10,7 @@ def get_core_nodes(features):
     return core_q
 
 
-def get_optional_nodes(features):
+def get_optional_queries(features):
     optional = {}
     for n in features:
         if features[n]['optional']:
@@ -35,7 +35,4 @@ def get_queries_list(core_q, optional):
             for n in c:
                 q[n] = optional[n]
             qlist.append(q)
-    return qlist
-
-
-
+    return sorted(qlist, key=len, reverse=True)

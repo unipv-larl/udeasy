@@ -257,18 +257,25 @@ def filter_candidates_positions(pos_list, candidates):
     return result
 
 
-def sent_results(sentence, features, relations, positions):
-    # TODO rewrite everithing
+def process_sent(sentence, features, relations, positions):
     candidates1 = get_candidates_features(features, sentence)
     candidates2 = filter_candidates_relations(relations, candidates1)
     results = filter_candidates_positions(positions, candidates2)
     return results
 
 
-# TODO adapt everithing to the new dictionary
-
-'''
-Algorithm:
-1. get a list of cores matching the queries of the non optional nodes
-2. for each core, check if a set of optional nodes can be added to the pattern (starting from the largest set)
-'''
+def sent_results(sentence, features, relations, positions):
+    # adapting queries to extract cores
+    core_query = optional.get_core_queries(features)
+    adapted_core_relations = optional.adapt_condition_list(core_query, relations)
+    adapted_core_positions = optional.adapt_condition_list(core_query, positions)
+    # optional query
+    optional_query = optional.get_optional_queries(features)
+    # extracting cores
+    cores = process_sent(sentence, core_query, adapted_core_relations, adapted_core_positions)
+    for core in cores:
+        # TODO
+        pass
+    # for each core:
+    #   looking for optional nodes
+    #   add the core + (optional) to the results
