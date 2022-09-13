@@ -3,6 +3,10 @@ import itertools
 import sys
 import printer
 import optional
+import logging
+
+
+logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 
 
 class QueryResults:
@@ -27,7 +31,7 @@ class QueryResults:
         """
         for sentence in tb:
             self.count['number of sentences'] += 1
-            print(self.count['number of sentences'])
+            logging.info(f'sentences processed:{self.count["number of sentences"]}')
             sent_res = sent_results(sentence, features, relations, positions)
             if sent_res:
                 self.count['matched sentences'] += 1
@@ -57,7 +61,10 @@ def str2list(s):
 
 
 def convert(truth_value, change_value):
-    return truth_value == change_value
+    if change_value:
+        return not truth_value
+    else:
+        return truth_value
 
 
 def match_condition(node, c):
@@ -270,10 +277,10 @@ def sent_results(sentence, features, relations, positions):
     core_query = optional.get_core_queries(features)
     adapted_core_relations = optional.adapt_condition_list(core_query, relations)
     adapted_core_positions = optional.adapt_condition_list(core_query, positions)
-    # optional query
-    optional_query = optional.get_optional_queries(features)
     # extracting cores
     cores = process_sent(sentence, core_query, adapted_core_relations, adapted_core_positions)
+    # optional query
+    optional_query = optional.get_optional_queries(features)
     if optional_query:
         results = []
         for core in cores:
@@ -294,7 +301,3 @@ def sent_results(sentence, features, relations, positions):
     else:
         results = cores.copy()
     return results
-
-# TODO fare in modo di controllare i nodi del core quando fa la prima selezione dei candidates
-
-# TODO riposati che non ce la fai più
