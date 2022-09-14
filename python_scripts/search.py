@@ -29,7 +29,7 @@ class QueryResults:
         :param show_conllu: a boolean variable. If True, it returns the nodes in conllu format otherwise, it returns only
         the word forms
         """
-        for sentence in tb:
+        for sentence in tb[:1]:
             self.count['number of sentences'] += 1
             logging.info(f'sentences processed:{self.count["number of sentences"]}')
             sent_res = sent_results(sentence, features, relations, positions)
@@ -292,6 +292,11 @@ def sent_results(sentence, features, relations, positions):
                 focus_relations = optional.adapt_condition_list(focus_query, relations)
                 focus_positions = optional.adapt_condition_list(focus_query, positions)
                 focus_results = process_sent(sentence, focus_query, focus_relations, focus_positions)
+                # TODO mettere a posto
+                # for res in focus_results:
+                #     for node in core:
+                #         if core[node] != res[node]:
+                #             focus_results.remove(res)
                 if focus_results:
                     core_results += focus_results
                     optional.remove_queries_from_list(queries_list, focus_query)
