@@ -49,3 +49,10 @@ def str_results(results, conllu=True):
                 string += f'{node}: {res[node].form}\n'
         string += '\n'
     return string
+
+
+def res2str(res_dict):
+    str = ''
+    for k in res_dict:
+        str += res_dict[k].form + ' '
+    return str

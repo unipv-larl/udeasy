@@ -1,4 +1,8 @@
 import itertools
+import logging
+
+
+logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 
 
 def get_core_queries(features):
@@ -47,3 +51,15 @@ def remove_queries_from_list(queries_list, focus_query):
                 break
         if remove:
             queries_list.remove(query)
+
+
+def check_core(core, results_optional):
+    cleaned = []
+    for res in results_optional:
+        append = True
+        for node in core:
+            if core[node] != res[node]:
+                append = False
+        if append:
+            cleaned.append(res)
+    return cleaned

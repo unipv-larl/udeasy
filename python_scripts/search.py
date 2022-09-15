@@ -29,10 +29,11 @@ class QueryResults:
         :param show_conllu: a boolean variable. If True, it returns the nodes in conllu format otherwise, it returns only
         the word forms
         """
-        for sentence in tb[:1]:
-            self.count['number of sentences'] += 1
-            logging.info(f'sentences processed:{self.count["number of sentences"]}')
+        self.count['number of sentences'] = len(tb.bundles)
+        processed_sentences = 0
+        for sentence in tb:
             sent_res = sent_results(sentence, features, relations, positions)
+            processed_sentences += 1
             if sent_res:
                 self.count['matched sentences'] += 1
                 self.count['matched patterns'] += len(sent_res)
@@ -292,13 +293,14 @@ def sent_results(sentence, features, relations, positions):
                 focus_relations = optional.adapt_condition_list(focus_query, relations)
                 focus_positions = optional.adapt_condition_list(focus_query, positions)
                 focus_results = process_sent(sentence, focus_query, focus_relations, focus_positions)
-                # TODO mettere a posto
-                # for res in focus_results:
-                #     for node in core:
-                #         if core[node] != res[node]:
-                #             focus_results.remove(res)
-                if focus_results:
-                    core_results += focus_results
+                focus_cleaned = optional.check_core(core, focus_results)
+                logging.info(f"core: {printer.res2str(core)}")
+                for res1 in focus_results:
+                    logging.info(printer.res2str(res1))
+                for res in focus_cleaned:
+                    logging.info(printer.res2str(res))
+                if focus_cleaned:
+                    core_results += focus_cleaned
                     optional.remove_queries_from_list(queries_list, focus_query)
             if not core_results:
                 core_results.append(core)
