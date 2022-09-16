@@ -15,7 +15,10 @@ class StatsFrame(wx.Frame):
         self.wo = False
         self.dist = False
         self.feat = False
-        self.nodes = list(all_results[0].keys())
+        nodes = []
+        for res in all_results:
+            nodes += list(res.keys())
+        self.nodes = list(set(nodes))
         self.results = all_results
         super().__init__(parent, title="select parameters", size=(600, 400))
         self.main_panel = scrolled.ScrolledPanel(self)

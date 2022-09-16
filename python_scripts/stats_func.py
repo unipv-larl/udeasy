@@ -18,14 +18,19 @@ def wo(results: list, stat: dict):
     """
     n1_first = 0
     n2_first = 0
+    node_missing = 0
     for r in results:
-        if r[stat['node1']]._ord < r[stat['node2']]._ord:
-            n1_first += 1
+        if stat['node1'] in r and stat['node2'] in r:
+            if r[stat['node1']]._ord < r[stat['node2']]._ord:
+                n1_first += 1
+            else:
+                n2_first += 1
         else:
-            n2_first += 1
+            node_missing += 1
     table = [['order', 'count', 'frequency'],
              [f"{stat['node1']}-{stat['node2']}", n1_first, n1_first / (n1_first + n2_first)],
-             [f"{stat['node2']}-{stat['node1']}", n2_first, n2_first / (n1_first + n2_first)]]
+             [f"{stat['node2']}-{stat['node1']}", n2_first, n2_first / (n1_first + n2_first)],
+             [f"results with missing nodes", node_missing, '-']]
     return tabulate(table, headers="firstrow")
 
 
@@ -37,7 +42,8 @@ def dist(results: list, stat: dict):
     """
     distances = []
     for r in results:
-        distances.append(r[stat['node1']]._ord - r[stat['node2']]._ord)
+        if stat['node1'] in r and stat['node2'] in r:
+            distances.append(r[stat['node1']]._ord - r[stat['node2']]._ord)
     table = [[f"distance {stat['node1']}-{stat['node2']}", 'count', 'frequency']]
     absolute = [abs(x) for x in distances]
     for d in sorted(set(distances)):
@@ -53,7 +59,8 @@ def feat(results: list, stat: list):
         feat_res = []
         s = stat[0]
         for res in results:
-            feat_res.append(get_conllu_attr(res[s['node']], s['feat']))
+            if s['node'] in res:
+                feat_res.append(get_conllu_attr(res[s['node']], s['feat']))
         table = [[s['feat'], 'count', 'frequency']]
         for x in set(feat_res):
             table.append([x, feat_res.count(x), feat_res.count(x) / len(feat_res)])
@@ -65,9 +72,10 @@ def feat(results: list, stat: list):
         feat_res2 = []
         coocc = []
         for res in results:
-            feat_res1.append(get_conllu_attr(res[s1['node']], s1['feat']))
-            feat_res2.append(get_conllu_attr(res[s2['node']], s2['feat']))
-            coocc.append((get_conllu_attr(res[s1['node']], s1['feat']), get_conllu_attr(res[s2['node']], s2['feat'])))
+            if s1['node'] in res and s2['node'] in res:
+                feat_res1.append(get_conllu_attr(res[s1['node']], s1['feat']))
+                feat_res2.append(get_conllu_attr(res[s2['node']], s2['feat']))
+                coocc.append((get_conllu_attr(res[s1['node']], s1['feat']), get_conllu_attr(res[s2['node']], s2['feat'])))
         col_names = [f'{s1["node"]}:{s1["feat"]}/{s2["node"]}:{s2["feat"]}'] + list(set(feat_res2))
         row_names = list(set(feat_res1))
         table = [col_names]
@@ -80,10 +88,16 @@ def feat(results: list, stat: list):
     else:
         coocc = []
         for res in results:
-            c = []
+            count = True
             for i in range(len(stat)):
-                c.append(get_conllu_attr(res[stat[i]['node']], stat[i]['feat']))
-            coocc.append(tuple(c))
+                if stat[i]['node'] not in res:
+                    count = False
+                    break
+            if count:
+                c = []
+                for i in range(len(stat)):
+                    c.append(get_conllu_attr(res[stat[i]['node']], stat[i]['feat']))
+                coocc.append(tuple(c))
         values = list(set(coocc))
         string = f'{stat[0]["node"]}:{stat[0]["feat"]}'
         for i in range(1, len(stat)):
