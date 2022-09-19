@@ -1,6 +1,7 @@
 import io
 import itertools
 import sys
+import wx
 import printer
 import optional
 import logging
@@ -14,6 +15,7 @@ class QueryResults:
         self.results = []
         self.string = ''
         self.count = {'number of sentences': 0, 'matched sentences': 0, 'matched patterns': 0}
+        self.abort = False
 
     def process(self, tb, features, relations, positions, show_sent, show_conllu, show_trees):
         """
@@ -31,9 +33,16 @@ class QueryResults:
         """
         self.count['number of sentences'] = len(tb.bundles)
         processed_sentences = 0
+        setattr(self, "progress", wx.ProgressDialog("Processing sentences",
+                                                    f"0/{self.count['number of sentences']} processed sentences",
+                                                    maximum=self.count['number of sentences']))
+        self.progress.Bind(wx.EVT_CLOSE, self.destroy_progress)
         for sentence in tb:
+            if self.abort:
+                break
             sent_res = sent_results(sentence, features, relations, positions)
             processed_sentences += 1
+            self.progress.Update(processed_sentences, newmsg=f"{processed_sentences}/{self.count['number of sentences']} processed sentences")
             if sent_res:
                 self.count['matched sentences'] += 1
                 self.count['matched patterns'] += len(sent_res)
@@ -48,6 +57,10 @@ class QueryResults:
                     self.string += sys.stdout.getvalue()
                 sys.stdout = sys.__stdout__
                 self.string += printer.str_results(sent_res, show_conllu) + '\n\n'
+
+    def destroy_progress(self, event):
+        self.progress.Destroy()
+        self.abort = True
 
 
 def str2list(s):
@@ -294,11 +307,11 @@ def sent_results(sentence, features, relations, positions):
                 focus_positions = optional.adapt_condition_list(focus_query, positions)
                 focus_results = process_sent(sentence, focus_query, focus_relations, focus_positions)
                 focus_cleaned = optional.check_core(core, focus_results)
-                logging.info(f"core: {printer.res2str(core)}")
-                for res1 in focus_results:
-                    logging.info(printer.res2str(res1))
-                for res in focus_cleaned:
-                    logging.info(printer.res2str(res))
+                # logging.info(f"core: {printer.res2str(core)}")
+                # for res1 in focus_results:
+                    # logging.info(printer.res2str(res1))
+                # for res in focus_cleaned:
+                    # logging.info(printer.res2str(res))
                 if focus_cleaned:
                     core_results += focus_cleaned
                     optional.remove_queries_from_list(queries_list, focus_query)

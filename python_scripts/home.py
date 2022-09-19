@@ -48,9 +48,9 @@ class MainFrame(wx.Frame):
         # setting the attributes passed to the previous panel (file name and then conllu document)
         if hasattr(self.file_chooser, "file_path"):
             setattr(self, "file", self.file_chooser.file_path)
-        else:
-            setattr(self.file_chooser, "file_path", "/home/bavagliladri/UD_Latin-PROIEL.conllu")
-            setattr(self, "file", self.file_chooser.file_path)
+        # else:
+            # setattr(self.file_chooser, "file_path", "/home/bavagliladri/UD_Latin-PROIEL.conllu")
+            # setattr(self, "file", self.file_chooser.file_path)
         setattr(self, "treebank", udapi.Document(self.file))
 
         # if a nodes panel has not yet been shown, create one
@@ -221,7 +221,8 @@ class MainFrame(wx.Frame):
                          show_conllu=self.cb_conllu.GetValue(), show_trees=self.cb_trees.GetValue())
 
         # show results
-        setattr(self, "res_frame", results.ResultsFrame(self, self.res))
+        if not self.res.abort:
+            setattr(self, "res_frame", results.ResultsFrame(self, self.res))
 
     def reset(self, event, delete_everything=True):
         # defining the lists of objects to be deleted
