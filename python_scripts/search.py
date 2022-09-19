@@ -1,8 +1,13 @@
 import io
 import itertools
 import sys
+import wx
 import printer
 import optional
+import logging
+
+
+logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 
 
 class QueryResults:
@@ -10,6 +15,7 @@ class QueryResults:
         self.results = []
         self.string = ''
         self.count = {'number of sentences': 0, 'matched sentences': 0, 'matched patterns': 0}
+        self.abort = False
 
     def process(self, tb, features, relations, positions, show_sent, show_conllu, show_trees):
         """
@@ -25,9 +31,18 @@ class QueryResults:
         :param show_conllu: a boolean variable. If True, it returns the nodes in conllu format otherwise, it returns only
         the word forms
         """
+        self.count['number of sentences'] = len(tb.bundles)
+        processed_sentences = 0
+        setattr(self, "progress", wx.ProgressDialog("Processing sentences",
+                                                    f"0/{self.count['number of sentences']} processed sentences",
+                                                    maximum=self.count['number of sentences']))
+        self.progress.Bind(wx.EVT_CLOSE, self.destroy_progress)
         for sentence in tb:
-            self.count['number of sentences'] += 1
+            if self.abort:
+                break
             sent_res = sent_results(sentence, features, relations, positions)
+            processed_sentences += 1
+            self.progress.Update(processed_sentences, newmsg=f"{processed_sentences}/{self.count['number of sentences']} processed sentences")
             if sent_res:
                 self.count['matched sentences'] += 1
                 self.count['matched patterns'] += len(sent_res)
@@ -43,6 +58,10 @@ class QueryResults:
                 sys.stdout = sys.__stdout__
                 self.string += printer.str_results(sent_res, show_conllu) + '\n\n'
 
+    def destroy_progress(self, event):
+        self.progress.Destroy()
+        self.abort = True
+
 
 def str2list(s):
     """
@@ -56,7 +75,10 @@ def str2list(s):
 
 
 def convert(truth_value, change_value):
-    return truth_value == change_value
+    if change_value:
+        return not truth_value
+    else:
+        return truth_value
 
 
 def match_condition(node, c):
@@ -257,18 +279,45 @@ def filter_candidates_positions(pos_list, candidates):
     return result
 
 
-def sent_results(sentence, features, relations, positions):
-    # TODO rewrite everithing
+def process_sent(sentence, features, relations, positions):
     candidates1 = get_candidates_features(features, sentence)
     candidates2 = filter_candidates_relations(relations, candidates1)
     results = filter_candidates_positions(positions, candidates2)
     return results
 
 
-# TODO adapt everithing to the new dictionary
-
-'''
-Algorithm:
-1. get a list of cores matching the queries of the non optional nodes
-2. for each core, check if a set of optional nodes can be added to the pattern (starting from the largest set)
-'''
+def sent_results(sentence, features, relations, positions):
+    # adapting queries to extract cores
+    core_query = optional.get_core_queries(features)
+    adapted_core_relations = optional.adapt_condition_list(core_query, relations)
+    adapted_core_positions = optional.adapt_condition_list(core_query, positions)
+    # extracting cores
+    cores = process_sent(sentence, core_query, adapted_core_relations, adapted_core_positions)
+    # optional query
+    optional_query = optional.get_optional_queries(features)
+    if optional_query:
+        results = []
+        for core in cores:
+            core_results = []
+            queries_list = optional.get_queries_list(core_query, optional_query)
+            while queries_list:
+                focus_query = queries_list[0]
+                queries_list.pop(0)
+                focus_relations = optional.adapt_condition_list(focus_query, relations)
+                focus_positions = optional.adapt_condition_list(focus_query, positions)
+                focus_results = process_sent(sentence, focus_query, focus_relations, focus_positions)
+                focus_cleaned = optional.check_core(core, focus_results)
+                # logging.info(f"core: {printer.res2str(core)}")
+                # for res1 in focus_results:
+                    # logging.info(printer.res2str(res1))
+                # for res in focus_cleaned:
+                    # logging.info(printer.res2str(res))
+                if focus_cleaned:
+                    core_results += focus_cleaned
+                    optional.remove_queries_from_list(queries_list, focus_query)
+            if not core_results:
+                core_results.append(core)
+            results += core_results
+    else:
+        results = cores.copy()
+    return results
