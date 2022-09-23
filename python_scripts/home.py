@@ -80,7 +80,7 @@ class MainFrame(wx.Frame):
 
         # extracting the keys of the feats and misc conllu fields
         list_of_keys = []
-        for sent in self.treebank[:100]:
+        for sent in self.treebank[:250]:
             root = sent.get_tree()
             nodes = root.descendants()
             for n in nodes:
