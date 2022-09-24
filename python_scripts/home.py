@@ -1,3 +1,4 @@
+import udapi
 import wx
 import wx.lib.scrolledpanel as scrolled
 import choose_file
@@ -7,7 +8,6 @@ import relations
 import positions
 import search
 import results
-import udapi
 
 
 class MainFrame(wx.Frame):
