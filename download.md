@@ -6,6 +6,11 @@ Latest stable release: -
 
 ---
 
+## Release 1.0.0
+
+Soon available
+
+---
 
 ## Release 0.1.1
 
