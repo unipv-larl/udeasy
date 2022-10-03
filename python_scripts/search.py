@@ -5,6 +5,7 @@ import wx
 import printer
 import optional
 import logging
+import pandas as pd
 
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
@@ -14,6 +15,7 @@ class QueryResults:
     def __init__(self):
         self.results = []
         self.string = ''
+        self.df = []
         self.count = {'number of sentences': 0, 'matched sentences': 0, 'matched patterns': 0}
         self.abort = False
 

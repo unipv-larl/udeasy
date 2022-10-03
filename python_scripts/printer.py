@@ -33,6 +33,19 @@ def sent_to_conllu(sent):
     return string
 
 
+class StrResults:
+    def __init__(self, results, conllu=True, sent_id='', text=''):
+        self.str = ''
+        self.df = []
+        for res in results:
+            for node in res:
+                if conllu:
+                    self.str += f'{node}: {node_to_conllu(res[node])}\n'
+                else:
+                    self.str += f'{node}: {res[node].form}\n'
+            self.str += '\n'
+
+
 def str_results(results, conllu=True):
     """
     This function takes as argument the list containing the results and returns them in a string
@@ -48,7 +61,7 @@ def str_results(results, conllu=True):
             else:
                 string += f'{node}: {res[node].form}\n'
         string += '\n'
-    return string
+    return string, df
 
 
 def res2str(res_dict):
