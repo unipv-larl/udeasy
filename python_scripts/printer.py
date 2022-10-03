@@ -36,14 +36,18 @@ def sent_to_conllu(sent):
 class StrResults:
     def __init__(self, results, conllu=True, sent_id='', text=''):
         self.str = ''
-        self.df = []
+        self.rows = []
         for res in results:
+            row = {'sent_id': sent_id, 'text': text}
             for node in res:
+                # TODO add optional nodes
+                row[node] = res[node].form
                 if conllu:
                     self.str += f'{node}: {node_to_conllu(res[node])}\n'
                 else:
                     self.str += f'{node}: {res[node].form}\n'
             self.str += '\n'
+            self.rows.append(row)
 
 
 def str_results(results, conllu=True):
@@ -61,7 +65,7 @@ def str_results(results, conllu=True):
             else:
                 string += f'{node}: {res[node].form}\n'
         string += '\n'
-    return string, df
+    return string
 
 
 def res2str(res_dict):

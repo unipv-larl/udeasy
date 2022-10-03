@@ -15,7 +15,8 @@ class QueryResults:
     def __init__(self):
         self.results = []
         self.string = ''
-        self.df = []
+        self.csv_rows = []
+        self.df = None
         self.count = {'number of sentences': 0, 'matched sentences': 0, 'matched patterns': 0}
         self.abort = False
 
@@ -58,7 +59,11 @@ class QueryResults:
                     sentence.draw(color=None, print_sent_id=False, print_doc_meta=False, print_text=False, indent=2)
                     self.string += sys.stdout.getvalue()
                 sys.stdout = sys.__stdout__
-                self.string += printer.str_results(sent_res, show_conllu) + '\n\n'
+                sent_str_data = printer.StrResults(sent_res, show_conllu, sent_id=sentence.get_tree()._sent_id, text=sentence.get_tree().get_sentence())
+                self.string += sent_str_data.str + '\n\n'
+                self.csv_rows += sent_str_data.rows
+                self.df = pd.DataFrame.from_records(self.csv_rows)
+        print(self.df)
 
     def destroy_progress(self, event):
         self.progress.Destroy()
