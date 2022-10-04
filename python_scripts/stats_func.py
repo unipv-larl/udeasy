@@ -31,7 +31,7 @@ def wo(results: list, stat: dict):
              [f"{stat['node1']}-{stat['node2']}", n1_first, n1_first / (n1_first + n2_first)],
              [f"{stat['node2']}-{stat['node1']}", n2_first, n2_first / (n1_first + n2_first)],
              [f"results with missing nodes", node_missing, '-']]
-    return tabulate(table, headers="firstrow")
+    return {'table': tabulate(table, headers="firstrow")}
 
 
 def dist(results: list, stat: dict):
