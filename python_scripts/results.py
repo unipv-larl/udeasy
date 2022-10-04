@@ -1,10 +1,12 @@
 import wx
 import wx.lib.newevent
 import stats_query_frame
+import pandas as pd
 
 
 ID_STATS_FRAME = wx.NewId()
 ID_COUNT = wx.NewId()
+ID_EXPORT = wx.NewId()
 
 
 class ResultsFrame(wx.Frame):
@@ -30,6 +32,8 @@ class ResultsFrame(wx.Frame):
         fileMenu = wx.Menu()
         item_saveas = wx.MenuItem(fileMenu, wx.ID_SAVEAS, text="Save as...")
         fileMenu.Append(item_saveas)
+        item_exportcsv = wx.MenuItem(fileMenu, ID_EXPORT, text="Export as csv")
+        fileMenu.Append(item_exportcsv)
         menubar.Append(fileMenu, "&File")
 
         statsMenu = wx.Menu()
@@ -59,6 +63,21 @@ class ResultsFrame(wx.Frame):
                 path = dlg.GetPath()
                 with open(path, 'w', encoding='utf-8') as file:
                     file.write(self.results_text.GetValue())
+            dlg.Destroy()
+
+        elif id == ID_EXPORT:
+            wildcard = "csv file (*.csv)|*.csv|" \
+                       "All files (*.*)|*.*"
+            dlg = wx.FileDialog(
+                self, message="Export as csv file",
+                defaultDir="",
+                defaultFile="",
+                wildcard=wildcard,
+                style=wx.FD_SAVE
+            )
+            if dlg.ShowModal() == wx.ID_OK:
+                path = dlg.GetPath()
+                self.res.df.to_csv(path, index=False)
             dlg.Destroy()
 
         elif id == ID_STATS_FRAME:

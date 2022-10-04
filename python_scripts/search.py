@@ -59,7 +59,7 @@ class QueryResults:
                     sentence.draw(color=None, print_sent_id=False, print_doc_meta=False, print_text=False, indent=2)
                     self.string += sys.stdout.getvalue()
                 sys.stdout = sys.__stdout__
-                sent_str_data = printer.StrResults(sent_res, show_conllu, sent_id=sentence.get_tree()._sent_id, text=sentence.get_tree().get_sentence())
+                sent_str_data = printer.StrResults(sent_res, features.keys(), show_conllu, sent_id=sentence.get_tree()._sent_id, text=sentence.get_tree().get_sentence())
                 self.string += sent_str_data.str + '\n\n'
                 self.csv_rows += sent_str_data.rows
                 self.df = pd.DataFrame.from_records(self.csv_rows)
