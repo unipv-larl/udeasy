@@ -15,6 +15,7 @@ class StatsFrame(wx.Frame):
         self.wo = False
         self.dist = False
         self.feat = False
+        self.dfs = []
         nodes = []
         for res in all_results:
             nodes += list(res.keys())
@@ -136,16 +137,22 @@ class StatsFrame(wx.Frame):
         stats_string = ''
 
         for stat in self.stats_dict['wo']:
-            stats_string += stats_func.wo(self.results, stat) + '\n\n\n'
+            stat_res = stats_func.wo(self.results, stat)
+            stats_string += stat_res['table'] + '\n\n\n'
+            self.dfs.append(stat_res['df'])
 
         for stat in self.stats_dict['dist']:
-            stats_string += stats_func.dist(self.results, stat)['table'] + '\n\n'
-            stats_string += 'average distance: ' + f"{stats_func.dist(self.results, stat)['av_dist']}" + '\n\n\n'
+            stat_res = stats_func.dist(self.results, stat)
+            stats_string += stat_res['table'] + '\n\n'
+            stats_string += 'average distance: ' + f"{stat_res['av_dist']}" + '\n\n\n'
+            self.dfs.append(stat_res['df'])
 
         if self.stats_dict['feat']:
-            stats_string += stats_func.feat(self.results, self.stats_dict['feat'])
+            stat_res = stats_func.feat(self.results, self.stats_dict['feat'])
+            stats_string += stat_res['table']
+            self.dfs.append(stat_res['df'])
 
-        stats_res_frame = stats_results_frame.StatsFrame(self, stats_string)
+        stats_res_frame = stats_results_frame.StatsFrame(self, stats_string, self.dfs)
 
 
 if __name__ == "__main__":

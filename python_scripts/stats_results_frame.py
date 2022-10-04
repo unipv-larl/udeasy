@@ -1,14 +1,18 @@
 import wx
 
 
+ID_EXPORT = wx.NewId()
+
+
 class StatsFrame(wx.Frame):
     """
     The frame in which the selected statistics are shown
     """
-    def __init__(self, parent, stats_string):
+    def __init__(self, parent, stats_string, stats_dfs):
         super().__init__(parent, title="stats", size=(600, 400))
         self.panel = wx.Panel(self)
         self.stats_text = wx.TextCtrl(self.panel, style=wx.TE_MULTILINE, value=stats_string)
+        self.dfs = stats_dfs
         size = self.stats_text.GetFont().GetPointSize()
         self.stats_text.SetFont(wx.Font(size, wx.FONTFAMILY_TELETYPE, wx.NORMAL, wx.NORMAL, faceName="Monospace"))
         self.sizer = wx.BoxSizer(wx.VERTICAL)
@@ -25,6 +29,8 @@ class StatsFrame(wx.Frame):
         fileMenu = wx.Menu()
         item_saveas = wx.MenuItem(fileMenu, wx.ID_SAVEAS, text="Save as...")
         fileMenu.Append(item_saveas)
+        item_exportcsv = wx.MenuItem(fileMenu, ID_EXPORT, text="Export csv(s)")
+        fileMenu.Append(item_exportcsv)
         menubar.Append(fileMenu, "&File")
 
         self.Bind(wx.EVT_MENU, self.menuhandler)
@@ -34,6 +40,23 @@ class StatsFrame(wx.Frame):
     def menuhandler(self, event):
         id = event.GetId()
         if id == wx.ID_SAVEAS:
+            wildcard = "txt file (*.txt)|*.txt|" \
+                       "All files (*.*)|*.*"
+            dlg = wx.FileDialog(
+                self, message="Save as...",
+                defaultDir="",
+                defaultFile="",
+                wildcard=wildcard,
+                style=wx.FD_SAVE
+            )
+            if dlg.ShowModal() == wx.ID_OK:
+                path = dlg.GetPath()
+                with open(path, 'w', encoding='utf-8') as file:
+                    file.write(self.stats_text.GetValue())
+            dlg.Destroy()
+
+        # TODO correggere qui e riscrivere
+        if id == ID_EXPORT:
             wildcard = "txt file (*.txt)|*.txt|" \
                        "All files (*.*)|*.*"
             dlg = wx.FileDialog(
