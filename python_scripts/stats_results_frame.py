@@ -1,4 +1,5 @@
 import wx
+import os
 
 
 ID_EXPORT = wx.NewId()
@@ -55,19 +56,15 @@ class StatsFrame(wx.Frame):
                     file.write(self.stats_text.GetValue())
             dlg.Destroy()
 
-        # TODO correggere qui e riscrivere
         if id == ID_EXPORT:
-            wildcard = "txt file (*.txt)|*.txt|" \
-                       "All files (*.*)|*.*"
-            dlg = wx.FileDialog(
+            dlg = wx.DirDialog(
                 self, message="Save as...",
-                defaultDir="",
-                defaultFile="",
-                wildcard=wildcard,
-                style=wx.FD_SAVE
+                style=wx.DD_DEFAULT_STYLE
             )
             if dlg.ShowModal() == wx.ID_OK:
-                path = dlg.GetPath()
-                with open(path, 'w', encoding='utf-8') as file:
-                    file.write(self.stats_text.GetValue())
+                path_dir = dlg.GetPath()
+            i = 0
+            for df in self.dfs:
+                df.to_csv(f"{os.path.join(path_dir, f'stats_results_{i}')}", index=False)
+                i += 1
             dlg.Destroy()
