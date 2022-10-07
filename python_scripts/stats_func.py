@@ -69,7 +69,10 @@ def feat(results: list, stat: list):
         s = stat[0]
         for res in results:
             if s['node'] in res:
-                feat_res.append(get_conllu_attr(res[s['node']], s['feat']))
+                attr = get_conllu_attr(res[s['node']], s['feat'])
+            else:
+                attr = 'NotInResults'
+            feat_res.append(attr)
         table = [[s['feat'], 'count', 'frequency']]
         for x in set(feat_res):
             table.append([x, feat_res.count(x), feat_res.count(x) / len(feat_res)])
@@ -83,10 +86,17 @@ def feat(results: list, stat: list):
         feat_res2 = []
         coocc = []
         for res in results:
-            if s1['node'] in res and s2['node'] in res:
-                feat_res1.append(get_conllu_attr(res[s1['node']], s1['feat']))
-                feat_res2.append(get_conllu_attr(res[s2['node']], s2['feat']))
-                coocc.append((get_conllu_attr(res[s1['node']], s1['feat']), get_conllu_attr(res[s2['node']], s2['feat'])))
+            if s1['node'] in res:
+                attr1 = get_conllu_attr(res[s1['node']], s1['feat'])
+            else:
+                attr1 = 'NotInResults'
+            if s2['node'] in res:
+                attr2 = get_conllu_attr(res[s2['node']], s2['feat'])
+            else:
+                attr2 = 'NotInResults'
+            feat_res1.append(attr1)
+            feat_res2.append(attr2)
+            coocc.append((attr1, attr2))
         col_names = [f'{s1["node"]}:{s1["feat"]}/{s2["node"]}:{s2["feat"]}'] + list(set(feat_res2))
         row_names = list(set(feat_res1))
         table = [col_names]
@@ -99,6 +109,7 @@ def feat(results: list, stat: list):
         df = pd.DataFrame.from_records(rows)
         return {'table': tabulate(table, headers="firstrow"), 'df': df}
     else:
+        # TODO aggiustare questo ramo della statistica
         coocc = []
         for res in results:
             count = True
