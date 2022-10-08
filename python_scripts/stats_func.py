@@ -109,19 +109,21 @@ def feat(results: list, stat: list):
         df = pd.DataFrame.from_records(rows)
         return {'table': tabulate(table, headers="firstrow"), 'df': df}
     else:
-        # TODO aggiustare questo ramo della statistica
         coocc = []
         for res in results:
-            count = True
+            # count = True
+            # for i in range(len(stat)):
+            #     if stat[i]['node'] not in res:
+            #         count = False
+            #         break
+            c = []
             for i in range(len(stat)):
-                if stat[i]['node'] not in res:
-                    count = False
-                    break
-            if count:
-                c = []
-                for i in range(len(stat)):
-                    c.append(get_conllu_attr(res[stat[i]['node']], stat[i]['feat']))
-                coocc.append(tuple(c))
+                if stat[i]['node'] in res:
+                    attr = get_conllu_attr(res[stat[i]['node']], stat[i]['feat'])
+                else:
+                    attr = 'NotInResults'
+                c.append(attr)
+            coocc.append(tuple(c))
         values = list(set(coocc))
         string = f'{stat[0]["node"]}:{stat[0]["feat"]}'
         for i in range(1, len(stat)):

@@ -65,6 +65,8 @@ class StatsFrame(wx.Frame):
                 path_dir = dlg.GetPath()
             i = 0
             for df in self.dfs:
-                df.to_csv(f"{os.path.join(path_dir, f'stats_results_{i}')}", index=False)
+                while os.path.exists(os.path.join(path_dir, f'stats_results_{i}.csv')):
+                    i += 1
+                df.to_csv(f"{os.path.join(path_dir, f'stats_results_{i}.csv')}", index=False)
                 i += 1
             dlg.Destroy()
