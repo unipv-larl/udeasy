@@ -39,6 +39,10 @@ def wo(results: list, stat: dict):
     return {'table': tabulate(table, headers="firstrow"), 'df': df}
 
 
+def wos(results: list, stat: list):
+    pass
+
+
 def dist(results: list, stat: dict):
     """
     This function returns a dictionary whose elements are:
