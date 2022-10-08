@@ -169,7 +169,7 @@ class StatsFrame(wx.Frame):
 
         if self.stats_dict['wos']:
             stat_res = stats_func.wos(self.results, self.stats_dict['wos'])
-            stats_string += stats_res['table'] + '\n\n\n'
+            stats_string += stat_res['table'] + '\n\n\n'
             self.dfs.append(stat_res['df'])
 
         for stat in self.stats_dict['dist']:

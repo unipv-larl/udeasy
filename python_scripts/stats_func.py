@@ -1,3 +1,4 @@
+import udapi.core.node
 from tabulate import tabulate
 import pandas as pd
 
@@ -11,6 +12,18 @@ def get_conllu_attr(node, attr):
         return node.misc[attr]
     else:
         return None
+
+
+def reverse_res(res, list_of_nodes):
+    rev = {}
+    for r in res:
+        if r in list_of_nodes:
+            rev[res[r]] = r
+    return rev
+
+
+def get_id(node: udapi.core.node.Node):
+    return node._ord
 
 
 def wo(results: list, stat: dict):
@@ -40,7 +53,19 @@ def wo(results: list, stat: dict):
 
 
 def wos(results: list, stat: list):
-    pass
+    table = [["ordering", "count", "frequency"]]
+    rows = []
+    ords = []
+    for res in results:
+        rev_res = reverse_res(res, stat)
+        ordering = sorted(list(rev_res.keys()), key=get_id)
+        t = (rev_res[o] for o in ordering)
+        ords.append(', '.join(t))
+    for o in set(ords):
+        table.append([o, ords.count(o), ords.count(o) / len(ords)])
+        rows.append({'ordering': o, 'count': ords.count(o), 'frequency': ords.count(o) / len(ords)})
+    df = pd.DataFrame.from_records(rows)
+    return {'table': tabulate(table, headers="firstrow"), 'df': df}
 
 
 def dist(results: list, stat: dict):
