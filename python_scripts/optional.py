@@ -6,19 +6,23 @@ logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 
 
 def get_core_queries(features):
+    # from the features dict select only those elements that are non optionals
     core_q = {}
     for n in features:
         if not features[n]['optional']:
             core_q[n] = features[n].copy()
+            # remove the optional key from the dict
             core_q[n].pop('optional', None)
     return core_q
 
 
 def get_optional_queries(features):
+    # from the features dict select only those elements that are optionals
     optional = {}
     for n in features:
         if features[n]['optional']:
             optional[n] = features[n].copy()
+            # remove the optional key from the dict
             optional[n].pop('optional', None)
     return optional
 
@@ -43,14 +47,15 @@ def get_queries_list(core_q, optional):
 
 
 def remove_queries_from_list(queries_list, focus_query):
+    cleaned = []
     for query in queries_list:
         remove = True
         for node in query:
-            if node not in focus_query:
+            if node not in focus_query.keys():
                 remove = False
-                break
-        if remove:
-            queries_list.remove(query)
+        if not remove:
+            cleaned.append(query)
+    return cleaned
 
 
 def check_core(core, results_optional):

@@ -5,6 +5,7 @@ import wx
 import printer
 import optional
 import logging
+import pandas as pd
 
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
@@ -14,6 +15,8 @@ class QueryResults:
     def __init__(self):
         self.results = []
         self.string = ''
+        self.csv_rows = []
+        self.df = None
         self.count = {'number of sentences': 0, 'matched sentences': 0, 'matched patterns': 0}
         self.abort = False
 
@@ -56,7 +59,11 @@ class QueryResults:
                     sentence.draw(color=None, print_sent_id=False, print_doc_meta=False, print_text=False, indent=2)
                     self.string += sys.stdout.getvalue()
                 sys.stdout = sys.__stdout__
-                self.string += printer.str_results(sent_res, show_conllu) + '\n\n'
+                sent_str_data = printer.StrResults(sent_res, features.keys(), show_conllu, sent_id=sentence.get_tree()._sent_id, text=sentence.get_tree().get_sentence())
+                self.string += sent_str_data.str + '\n\n'
+                self.csv_rows += sent_str_data.rows
+                self.df = pd.DataFrame.from_records(self.csv_rows)
+        print(self.df)
 
     def destroy_progress(self, event):
         self.progress.Destroy()
@@ -307,14 +314,9 @@ def sent_results(sentence, features, relations, positions):
                 focus_positions = optional.adapt_condition_list(focus_query, positions)
                 focus_results = process_sent(sentence, focus_query, focus_relations, focus_positions)
                 focus_cleaned = optional.check_core(core, focus_results)
-                # logging.info(f"core: {printer.res2str(core)}")
-                # for res1 in focus_results:
-                    # logging.info(printer.res2str(res1))
-                # for res in focus_cleaned:
-                    # logging.info(printer.res2str(res))
                 if focus_cleaned:
                     core_results += focus_cleaned
-                    optional.remove_queries_from_list(queries_list, focus_query)
+                    queries_list = optional.remove_queries_from_list(queries_list, focus_query)
             if not core_results:
                 core_results.append(core)
             results += core_results

@@ -214,6 +214,9 @@ class MainFrame(wx.Frame):
             p['dist'] = pos_row.pos.GetValue()
             self.positions.append(p)
 
+        #TODO here create the YAML file and store it somewhere
+        #TODO add a button to save and export the query
+
         # results object
         setattr(self, "res", search.QueryResults())
         self.res.process(tb=self.treebank, features=self.features, relations=self.relations,
