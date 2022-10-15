@@ -314,14 +314,9 @@ def sent_results(sentence, features, relations, positions):
                 focus_positions = optional.adapt_condition_list(focus_query, positions)
                 focus_results = process_sent(sentence, focus_query, focus_relations, focus_positions)
                 focus_cleaned = optional.check_core(core, focus_results)
-                # logging.info(f"core: {printer.res2str(core)}")
-                # for res1 in focus_results:
-                    # logging.info(printer.res2str(res1))
-                # for res in focus_cleaned:
-                    # logging.info(printer.res2str(res))
                 if focus_cleaned:
                     core_results += focus_cleaned
-                    optional.remove_queries_from_list(queries_list, focus_query)
+                    queries_list = optional.remove_queries_from_list(queries_list, focus_query)
             if not core_results:
                 core_results.append(core)
             results += core_results
