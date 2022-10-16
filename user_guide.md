@@ -34,6 +34,13 @@ These names allow the user to refer to the target nodes in the next steps.
 
 The user can now proceed to the next step clicking on the button _Confirm_.
 
+**new in version 1.0.0**
+
+It is now possible to include optional nodes in the query. To do so, just click the
+_optional_ box in the corresponding node.
+
+![nodes_panel_optional](img/nodes_panel_optional.png)
+
 ### Selecting the features for each target node
 
 In the panel that appears, the user can indicate one or more features that
@@ -139,7 +146,7 @@ query.
 
 The options are:
 
-* `word order`: this option allows the user to see the orderings of two
+* `word order (2 nodes)`: this option allows the user to see the orderings of two
 selected nodes in terms of absolute count and frequencies.
 
 * `distances`: this option allows the user to see the distribution of the
@@ -155,6 +162,14 @@ distribution of values that one or more features have. If more than
 one feature are selected, then the table will show the co-occurrences
 of those features.
 
+**new in version 1.0.0**
+
+![word_orders_stat](img/word_orders_stat.png)
+
+* `word order (more nodes)`: this option allow the user to see the ordering among more than
+two nodes. To do so, the user has to select the boxes corresponding to the nodes they want to
+include in the query.
+
 ##### Example
 
 ![stats_panel](img/stats_panel.png)
@@ -165,3 +180,22 @@ of those features.
 
 ![stats_res](img/stats_res2.png)
 *At the bottom of the page, the result of the `Features distributions` query*
+
+### Exporting the results
+
+From any window showing results (patterns or stats) it is possible to export the content
+to a txt file. To do so, just select the _File > Save as..._ option in the menu and choose
+the path where to save the txt file.
+
+**new in version 1.0.0**
+
+It is also possible to export the results as csv files:
+
+* export the patterns: in the results window select `File > Export as csv` and select a path where
+to store the csv file. The dataframe will have the following columns:
+  * sent_id
+  * text
+  * a column for each target node
+
+* export the stats: in the stats window, select `File > Export csv(s)` and select a directory where
+to store the csv files. UDeasy will give automatically a name to these files (`stats_results_[number].csv`).
