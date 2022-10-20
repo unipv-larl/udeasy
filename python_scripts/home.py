@@ -264,6 +264,14 @@ class MainFrame(wx.Frame):
         wx.Exit()
 
 
+def main():
+    app = wx.App()
+    frame = MainFrame()
+    frame.Show()
+    frame.Maximize()
+    app.MainLoop()
+
+
 if __name__ == '__main__':
     app = wx.App()
     frame = MainFrame()
