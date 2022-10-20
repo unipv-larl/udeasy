@@ -15,6 +15,7 @@ parts/
 sdist/
 var/
 wheels/
+app/
 share/python-wheels/
 *.egg-info/
 .installed.cfg
@@ -25,10 +26,12 @@ MANIFEST
 # IDE settings
 .idea/
 
-# executable folders temp
+# executable folders temp / .pyz and .pyzw files
 ubuntu64/
 win32/
 MacOS/
+*.pyz
+*pyzw
 
 # miscellaneous files
 misc_files/
