@@ -10,7 +10,6 @@ import search
 import results
 
 
-#v1.0.0
 class MainFrame(wx.Frame):
     """
     Main frame class: shows the main frame of the app.
