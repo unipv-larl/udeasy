@@ -41,13 +41,13 @@ jobs:
             CMD_BUILD: >
                 pyinstaller -F -w -i img/udeasy.ico -n udeasy python_scripts/home.py &&
                 cd dist/ &&
-                zip -r9 prova prova.app/
-            OUT_FILE_NAME: prova.zip
+                zip -r9 udeasy udeasy.app/
+            OUT_FILE_NAME: udeasy.zip
             ASSET_MIME: application/zip
           - os: windows-latest
             TARGET: windows
             CMD_BUILD: pyinstaller -F -w -i img/udeasy.ico -n udeasy python_scripts/home.py
-            OUT_FILE_NAME: prova.exe
+            OUT_FILE_NAME: udeasy.exe
             ASSET_MIME: application/vnd.microsoft.portable-executable
     steps:
     - uses: actions/checkout@v1
