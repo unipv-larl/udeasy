@@ -60,13 +60,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install attrdict
         pip install wheel
-        pip install -U wxPython
         pip install -U pyinstaller
         pip install -U udapi
         pip install -U tabulate
         pip install -U pandas
         pip install -U itertools
         pip install -U Pillow
+        pip install -U wxPython --verbose
     - name: Build with pyinstaller for ${{matrix.TARGET}}
       run: ${{matrix.CMD_BUILD}}
     - name: Load Release URL File from release job
