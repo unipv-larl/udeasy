@@ -22,6 +22,7 @@ share/python-wheels/
 *.egg
 *.spec
 MANIFEST
+release.sh
 
 # IDE settings
 .idea/
@@ -30,8 +31,6 @@ MANIFEST
 ubuntu64/
 win32/
 MacOS/
-*.pyz
-*pyzw
 
 # miscellaneous files
 misc_files/
