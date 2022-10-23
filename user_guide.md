@@ -4,6 +4,27 @@
 
 Go to the [download page](download.md).
 
+## Run UDeasy
+
+When you download the file that matches your platform, you can run the tool.
+
+### Ubuntu
+When you download the .deb package, you can install the tool running:
+
+```sh
+sudo dpkg -i udeasy_x.y.z-v_amd64.deb
+```
+
+from the position where you downloaded the file.
+
+### MacOS
+
+The app bundle you download is ready to be run. It may happen that you see a message from your computer saying that you should not run the program for security reasons, I assure you can run it without any security problem.
+
+### Windows
+
+The executable file you download is ready to be run. It may happen that you see a message from your computer saying that you should not run the program for security reasons, I assure you can run it without any security problem.
+
 ## Tutorial
 
 Now we will see how to use UDeasy.

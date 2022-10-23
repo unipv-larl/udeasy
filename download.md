@@ -4,6 +4,8 @@ Latest release: 1.0.0
 
 Latest stable release: 1.0.0
 
+Check the [changelog](changelog.md) to see in detail all the changes to this project.
+
 ---
 
 ## Release 1.0.0
