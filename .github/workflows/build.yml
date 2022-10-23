@@ -64,7 +64,6 @@ jobs:
         pip install -U udapi
         pip install -U tabulate
         pip install -U pandas
-        pip install -U itertools
         pip install -U Pillow
         pip install -U wxPython -v
     - name: Build with pyinstaller for ${{matrix.TARGET}}
