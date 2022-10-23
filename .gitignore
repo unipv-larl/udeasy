@@ -22,6 +22,7 @@ share/python-wheels/
 *.spec
 MANIFEST
 Gemfile
+release.sh
 
 # IDE settings
 .idea/

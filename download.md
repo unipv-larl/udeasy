@@ -11,8 +11,8 @@ Latest stable release: 1.0.0
 |             |                                                                                                                |
 |-------------|----------------------------------------------------------------------------------------------------------------|
 | **Ubuntu**  | [Download deb package](https://github.com/unipv-larl/udeasy/releases/download/v1.0.0/udeasy_1.0.0-1_amd64.deb) |
-| **Windows** | _Soon available_                                                                                               |
-| **MacOS**   | _Soon available_            |
+| **Windows** | [Download the exe file](https://github.com/unipv-larl/udeasy/releases/download/v1.0.0/udeasy.exe)                                                                                               |
+| **MacOS**   | [Download the app bundle](https://github.com/unipv-larl/udeasy/releases/download/v1.0.0/udeasy.zip)            |
 
 ---
 
