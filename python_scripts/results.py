@@ -1,6 +1,7 @@
 import wx
 import wx.lib.newevent
 import stats_query_frame
+import export_results
 import pandas as pd
 
 
