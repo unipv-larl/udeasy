@@ -6,7 +6,7 @@ class ExportFrame(wx.Frame):
     """
     The frame that appears when clicking 'File - Export as csv'
     """
-    def __init__(self, parent, *args, **kw):
+    def __init__(self, parent, node_names, list_of_keys, *args, **kw):
         super().__init__(parent=parent, title='Export results', size=(500, 600))
         self.main_panel = scrolled.ScrolledPanel(self)
         self.main_panel.SetAutoLayout(1)
@@ -33,11 +33,30 @@ class ExportFrame(wx.Frame):
         nodes_info_title = wx.StaticText(self.main_panel, label="Nodes info")
         nodes_info_title.SetFont(wx.Font(12, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD))
         self.main_sizer.Add(nodes_info_title, 0, wx.ALL | wx.ALIGN_LEFT, 5)
-
-        self.nodes_info_panel = NodesInfoPanel(parent=self.main_panel, node_names=['verb', 'noun'], list_of_keys=[])
+        # adding the nodes_info_panel
+        self.nodes_info_panel = NodesInfoPanel(parent=self.main_panel, node_names=node_names, list_of_keys=list_of_keys)
         self.main_sizer.Add(self.nodes_info_panel, 0, wx.ALL | wx.ALIGN_LEFT, 5)
 
+        btn_confirm = wx.Button(self.main_panel, label="Confirm")
+        btn_confirm.Bind(wx.EVT_BUTTON, self.pass_parameters)
+        self.main_sizer.Add(btn_confirm, 0, wx.ALL | wx.ALIGN_CENTER, 5)
+        
         self.main_panel.SetSizer(self.main_sizer)
+
+    def pass_parameters(self, event):
+        fields = {'sent': []}
+        if self.sent_info_panel.cb_id.GetValue():
+            fields['sent'].append('sent_id')
+        if self.sent_info_panel.cb_text.GetValue():
+            fields['sent'].append('text')
+        for n in self.nodes_info_panel.node_names:
+            node_panel = getattr(self.nodes_info_panel, f"node_panel_{n}")
+            fields[n] = []
+            for i in node_panel.ids:
+                feat_row = getattr(node_panel, f"feat_row{i}")
+                if feat_row.feature.GetValue():
+                    fields[n].append(feat_row.feature.GetValue())
+        setattr(self, "csv_parameters", fields)
 
 
 class SentInfoPanel(wx.Panel):
@@ -57,7 +76,7 @@ class SentInfoPanel(wx.Panel):
 
 
 class NodesInfoPanel(wx.Panel):
-    def __init__(self, parent, node_names, list_of_keys, *args, **kw):
+    def __init__(self, parent, node_names, list_of_keys=[], *args, **kw):
         self.node_names = node_names
         self.parent = parent
         self.choices = ['form', 'lemma', 'upos', 'xpos', 'deprel'] + sorted(list_of_keys)
@@ -98,7 +117,7 @@ class FeatRow(wx.Panel):
         self.id = parent.count
         super().__init__(parent=parent)
         self.main_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.feature = wx.ComboBox(self, choices=['a', 'b', 'c'])
+        self.feature = wx.ComboBox(self, choices=self.parent.parent.choices)
         btn_add = wx.Button(self, label='+')
         btn_add.Bind(wx.EVT_BUTTON, self.on_add)
         self.main_sizer.Add(self.feature, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
@@ -112,7 +131,6 @@ class FeatRow(wx.Panel):
     
     def on_add(self, event):
         self.Parent.count += 1
-        print(self.Parent.count)
         self.Parent.ids.append(self.Parent.count)
         setattr(self.Parent, f"feat_row{self.Parent.count}", FeatRow(self.Parent))
         self.Parent.main_sizer.Add(getattr(self.Parent, f"feat_row{self.Parent.count}"), 0, wx.ALL | wx.ALIGN_LEFT, 5)
@@ -130,6 +148,6 @@ class FeatRow(wx.Panel):
 
 if __name__ == '__main__':
     app = wx.App()
-    frame = ExportFrame(parent=None)
+    frame = ExportFrame(parent=None, node_names=['verb', 'noun'], list_of_keys=[])
     frame.Show()
     app.MainLoop()
