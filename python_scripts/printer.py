@@ -33,7 +33,7 @@ def sent_to_conllu(sent):
     return string
 
 
-class StrResults:
+""" class StrResults:
     def __init__(self, results, nodes, conllu=True, sent_id='', text=''):
         self.str = ''
         self.rows = []
@@ -49,7 +49,7 @@ class StrResults:
             for n in nodes:
                 if n not in row:
                     row[n] = None
-            self.rows.append(row)
+            self.rows.append(row) """
 
 
 def str_results(results, conllu=True):

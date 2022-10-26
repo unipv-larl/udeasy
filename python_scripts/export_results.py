@@ -42,6 +42,7 @@ class ExportFrame(wx.Frame):
         self.main_sizer.Add(btn_confirm, 0, wx.ALL | wx.ALIGN_CENTER, 5)
         
         self.main_panel.SetSizer(self.main_sizer)
+        self.Show()
 
     def pass_parameters(self, event):
         fields = {'sent': []}
