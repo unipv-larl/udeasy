@@ -1,12 +1,14 @@
 import wx
 import wx.lib.scrolledpanel as scrolled
+import printer
 
 
 class ExportFrame(wx.Frame):
     """
     The frame that appears when clicking 'File - Export as csv'
     """
-    def __init__(self, parent, node_names, list_of_keys, *args, **kw):
+    def __init__(self, parent, results, *args, **kw):
+        self.results = results
         super().__init__(parent=parent, title='Export results', size=(500, 600))
         self.main_panel = scrolled.ScrolledPanel(self)
         self.main_panel.SetAutoLayout(1)
@@ -19,7 +21,13 @@ class ExportFrame(wx.Frame):
         subtitle.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_ITALIC, wx.FONTWEIGHT_NORMAL))
         self.main_sizer.Add(title, 0, wx.ALL | wx.ALIGN_LEFT, 10)
         self.main_sizer.Add(subtitle, 0, wx.ALL | wx.ALIGN_LEFT, 8)
-        # TODO add the panels
+        # getting the list of nodes and the list of keys
+        node_names = []
+        list_of_keys = []
+        for r in self.results:
+            node_names += list(r.keys())
+            for n in r:
+                list_of_keys += list(r[n].feats.keys()) + list(r[n].misc.keys())
 
         # adding the title of the sent_info panel
         sent_info_title = wx.StaticText(self.main_panel, label="Sentence info")
@@ -34,7 +42,7 @@ class ExportFrame(wx.Frame):
         nodes_info_title.SetFont(wx.Font(12, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD))
         self.main_sizer.Add(nodes_info_title, 0, wx.ALL | wx.ALIGN_LEFT, 5)
         # adding the nodes_info_panel
-        self.nodes_info_panel = NodesInfoPanel(parent=self.main_panel, node_names=node_names, list_of_keys=list_of_keys)
+        self.nodes_info_panel = NodesInfoPanel(parent=self.main_panel, node_names=list(set(node_names)), list_of_keys=list(set(list_of_keys)))
         self.main_sizer.Add(self.nodes_info_panel, 0, wx.ALL | wx.ALIGN_LEFT, 5)
 
         btn_confirm = wx.Button(self.main_panel, label="Confirm")
@@ -58,6 +66,19 @@ class ExportFrame(wx.Frame):
                 if feat_row.feature.GetValue():
                     fields[n].append(feat_row.feature.GetValue())
         setattr(self, "csv_parameters", fields)
+        wildcard = "csv file (*.csv)|*.csv|" \
+                       "All files (*.*)|*.*"
+        dlg = wx.FileDialog(
+            self, message="Export as csv file",
+            defaultDir="",
+            defaultFile="",
+            wildcard=wildcard,
+            style=wx.FD_SAVE
+        )
+        if dlg.ShowModal() == wx.ID_OK:
+            path = dlg.GetPath()
+            printer.res2csv(results=self.results, fields=self.csv_parameters, path=path)
+        dlg.Destroy()
 
 
 class SentInfoPanel(wx.Panel):

@@ -14,6 +14,11 @@ def get_conllu_attr(node, attr):
         return None
 
 
+def node2sent_info(node: udapi.core.node.Node):
+    root = node._root
+    return {'sent_id': root.sent_id, 'text': root.get_sentence()}
+
+
 def reverse_res(res, list_of_nodes):
     rev = {}
     for r in res:

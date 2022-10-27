@@ -5,7 +5,6 @@ import wx
 import printer
 import optional
 import logging
-import pandas as pd
 
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)

@@ -67,26 +67,7 @@ class ResultsFrame(wx.Frame):
             dlg.Destroy()
 
         elif id == ID_EXPORT:
-            list_of_nodes = []
-            list_of_keys = []
-            for r in self.res.results:
-                list_of_nodes += list(r.keys())
-                for n in r:
-                    list_of_keys += list(r[n].feats.keys()) + list(r[n].misc.keys())
-            csv_frame = export_results.ExportFrame(self, node_names=list(set(list_of_nodes)), list_of_keys=list(set(list_of_keys)))
-            """ wildcard = "csv file (*.csv)|*.csv|" \
-                       "All files (*.*)|*.*"
-            dlg = wx.FileDialog(
-                self, message="Export as csv file",
-                defaultDir="",
-                defaultFile="",
-                wildcard=wildcard,
-                style=wx.FD_SAVE
-            )
-            if dlg.ShowModal() == wx.ID_OK:
-                path = dlg.GetPath()
-                self.res.df.to_csv(path, index=False)
-            dlg.Destroy() """
+            csv_frame = export_results.ExportFrame(self, self.res.results)
 
         elif id == ID_STATS_FRAME:
             stats_frame = stats_query_frame.StatsFrame(self, self.res.results)

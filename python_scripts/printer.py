@@ -1,3 +1,7 @@
+import pandas as pd
+import stats_func
+
+
 def node_to_conllu(node):
     """
     This function takes a node as argument and returns a string corresponding to the token in the conllu format
@@ -33,25 +37,6 @@ def sent_to_conllu(sent):
     return string
 
 
-""" class StrResults:
-    def __init__(self, results, nodes, conllu=True, sent_id='', text=''):
-        self.str = ''
-        self.rows = []
-        for res in results:
-            row = {'sent_id': sent_id, 'text': text}
-            for node in res:
-                row[node] = res[node].form
-                if conllu:
-                    self.str += f'{node}: {node_to_conllu(res[node])}\n'
-                else:
-                    self.str += f'{node}: {res[node].form}\n'
-            self.str += '\n'
-            for n in nodes:
-                if n not in row:
-                    row[n] = None
-            self.rows.append(row) """
-
-
 def str_results(results, conllu=True):
     """
     This function takes as argument the list containing the results and returns them in a string
@@ -68,6 +53,30 @@ def str_results(results, conllu=True):
                 string += f'{node}: {res[node].form}\n'
         string += '\n'
     return string
+
+
+def res2csv(results, fields, path):
+    rows = []
+    nodes = [n for n in fields if n != 'sent']
+    for res in results:
+        row = {}
+        sent_info = stats_func.node2sent_info(res[list(res.keys())[0]])
+        for f in fields['sent']:
+            row[f] = sent_info[f]
+        for n in nodes:
+            if n in res:
+                node_in_res = res[n]
+            else:
+                node_in_res = None
+            for f in fields[n]:
+                if node_in_res:
+                    attr = stats_func.get_conllu_attr(node_in_res, f)
+                else:
+                    attr = None
+                row[f'{n}_{f}'] = attr
+        rows.append(row)
+    df = pd.DataFrame.from_records(rows)
+    df.to_csv(path, index=False)
 
 
 def res2str(res_dict):
