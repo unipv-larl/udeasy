@@ -53,6 +53,10 @@ class ExportFrame(wx.Frame):
         self.Show()
 
     def pass_parameters(self, event):
+        """
+        This function stores the parameters passed to the frame to export the results as a csv file.
+        It opens a file dialog to select the path where to store the file.
+        """
         fields = {'sent': []}
         if self.sent_info_panel.cb_id.GetValue():
             fields['sent'].append('sent_id')
@@ -82,6 +86,9 @@ class ExportFrame(wx.Frame):
 
 
 class SentInfoPanel(wx.Panel):
+    """
+    The panel where boxes with information about the sentence can be checked
+    """
     def __init__(self, parent, *args, **kw):
         super().__init__(parent=parent)
         self.main_sizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -98,6 +105,9 @@ class SentInfoPanel(wx.Panel):
 
 
 class NodesInfoPanel(wx.Panel):
+    """
+    The panel where boxes with information about the nodes can be selected
+    """
     def __init__(self, parent, node_names, list_of_keys=[], *args, **kw):
         self.node_names = node_names
         self.parent = parent

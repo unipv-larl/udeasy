@@ -56,6 +56,9 @@ def str_results(results, conllu=True):
 
 
 def res2csv(results, fields, path):
+    """
+    This function takes as arguments the list containing the results, the dict containing the fields to export in the csv and the path where to export the csv file
+    """
     rows = []
     nodes = [n for n in fields if n != 'sent']
     for res in results:
@@ -80,6 +83,9 @@ def res2csv(results, fields, path):
 
 
 def res2str(res_dict):
+    """
+    This function turns a results dict into a string
+    """
     str = ''
     for k in res_dict:
         str += res_dict[k].form + ' '
