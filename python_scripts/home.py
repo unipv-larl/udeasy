@@ -51,7 +51,7 @@ class MainFrame(wx.Frame):
         if hasattr(self.file_chooser, "file_path"):
             self.file = self.file_chooser.file_path
         
-        # TODO validate file and open only if passes the validation
+        # validate file and open only if passes the validation
         errors = valideasy.validate(self.file)
         if errors:
             errors = 'Please, correct the following errors in the treebank before loading the treebank\n' + errors
