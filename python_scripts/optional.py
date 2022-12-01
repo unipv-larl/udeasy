@@ -6,7 +6,9 @@ logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 
 
 def get_core_queries(features):
-    # from the features dict select only those elements that are non optionals
+    """ 
+    from the features dict select only those elements that are non optionals
+    """
     core_q = {}
     for n in features:
         if not features[n]['optional']:
@@ -17,7 +19,9 @@ def get_core_queries(features):
 
 
 def get_optional_queries(features):
-    # from the features dict select only those elements that are optionals
+    """ 
+    from the features dict select only those elements that are optionals
+    """
     optional = {}
     for n in features:
         if features[n]['optional']:
@@ -28,6 +32,9 @@ def get_optional_queries(features):
 
 
 def adapt_condition_list(features, condition_list):
+    """
+    this function takes the list of features and adapt the list of conditions to include only those that involve the nodes in the features list
+    """
     adapted = []
     for c in condition_list:
         if c['node1'] in features and c['node2'] in features:
@@ -36,6 +43,10 @@ def adapt_condition_list(features, condition_list):
 
 
 def get_queries_list(core_q, optional):
+    """
+    from the set of core nodes (non optional) and the set of optional nodes, this function creates all the sets of possible combinations
+    the core nodes will be present in all the combinations
+    """
     qlist = []
     for i in range(1, len(optional) + 1):
         for c in itertools.combinations(optional, i):
@@ -47,6 +58,10 @@ def get_queries_list(core_q, optional):
 
 
 def remove_queries_from_list(queries_list, focus_query):
+    """ 
+    this function removes the queries that involves a subset of the nodes there are include in the focus query.
+    This is made to avoid to include in the results a pattern that includes optional nodes and a subset of the same pattern.
+    """ 
     cleaned = []
     for query in queries_list:
         remove = True
@@ -59,6 +74,9 @@ def remove_queries_from_list(queries_list, focus_query):
 
 
 def check_core(core, results_optional):
+    """
+    This function check that the results of a given query that includes optional nodes, include a core from which that set of results has been generated
+    """
     cleaned = []
     for res in results_optional:
         append = True

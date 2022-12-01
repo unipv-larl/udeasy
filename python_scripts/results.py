@@ -1,6 +1,7 @@
 import wx
 import wx.lib.newevent
 import stats_query_frame
+import export_results
 import pandas as pd
 
 
@@ -66,19 +67,7 @@ class ResultsFrame(wx.Frame):
             dlg.Destroy()
 
         elif id == ID_EXPORT:
-            wildcard = "csv file (*.csv)|*.csv|" \
-                       "All files (*.*)|*.*"
-            dlg = wx.FileDialog(
-                self, message="Export as csv file",
-                defaultDir="",
-                defaultFile="",
-                wildcard=wildcard,
-                style=wx.FD_SAVE
-            )
-            if dlg.ShowModal() == wx.ID_OK:
-                path = dlg.GetPath()
-                self.res.df.to_csv(path, index=False)
-            dlg.Destroy()
+            csv_frame = export_results.ExportFrame(self, self.res.results)
 
         elif id == ID_STATS_FRAME:
             stats_frame = stats_query_frame.StatsFrame(self, self.res.results)

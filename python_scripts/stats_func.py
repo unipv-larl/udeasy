@@ -4,6 +4,11 @@ import pandas as pd
 
 
 def get_conllu_attr(node, attr):
+    """
+    This function takes as argument a node and an attribute (string) and returns:
+    - the attribute if this is one of the conllu fields or subfields (of feats or misc)
+    - None otherwise
+    """
     if hasattr(node, attr):
         return getattr(node, attr)
     elif attr in node.feats:
@@ -14,7 +19,19 @@ def get_conllu_attr(node, attr):
         return None
 
 
+def node2sent_info(node: udapi.core.node.Node):
+    """
+    This function takes as argument a node and returns a dictionary containing the information about the conllu sentence (sent_id and text)
+    """
+    root = node._root
+    return {'sent_id': root.sent_id, 'text': root.get_sentence()}
+
+
 def reverse_res(res, list_of_nodes):
+    """
+    This function returns a reversed results dictionary containing only the nodes included in the list passed as argument
+    dict = {k1: v1, k2: v2...} --> reversed_dict = {v1: k1, v2: k2...}
+    """
     rev = {}
     for r in res:
         if r in list_of_nodes:
@@ -53,6 +70,9 @@ def wo(results: list, stat: dict):
 
 
 def wos(results: list, stat: list):
+    """
+    This function returns a table with the information about the word ordering of of a set of nodes in the results
+    """
     table = [["ordering", "count", "frequency"]]
     rows = []
     ords = []

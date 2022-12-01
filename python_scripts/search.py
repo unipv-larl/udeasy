@@ -5,7 +5,6 @@ import wx
 import printer
 import optional
 import logging
-import pandas as pd
 
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
@@ -59,11 +58,7 @@ class QueryResults:
                     sentence.draw(color=None, print_sent_id=False, print_doc_meta=False, print_text=False, indent=2)
                     self.string += sys.stdout.getvalue()
                 sys.stdout = sys.__stdout__
-                sent_str_data = printer.StrResults(sent_res, features.keys(), show_conllu, sent_id=sentence.get_tree()._sent_id, text=sentence.get_tree().get_sentence())
-                self.string += sent_str_data.str + '\n\n'
-                self.csv_rows += sent_str_data.rows
-                self.df = pd.DataFrame.from_records(self.csv_rows)
-        print(self.df)
+                self.string += printer.str_results(sent_res, show_conllu) + '\n\n'
 
     def destroy_progress(self, event):
         self.progress.Destroy()
@@ -144,6 +139,10 @@ def condition_matched(condition, bundle):
 
 
 def get_candidates_features(features, bundle):
+    """
+    This function represents the first step of the querying process: it takes a sentence and a features dict and returns all the combinations of
+    nodes that match the given features
+    """
     node_names = list(features.keys())
     candidates = []
     conditions = [features[n] for n in node_names]
@@ -287,6 +286,9 @@ def filter_candidates_positions(pos_list, candidates):
 
 
 def process_sent(sentence, features, relations, positions):
+    """
+    This function takes as arguments all the parameters of the query (features, relations, positions) and returns a set of results
+    """
     candidates1 = get_candidates_features(features, sentence)
     candidates2 = filter_candidates_relations(relations, candidates1)
     results = filter_candidates_positions(positions, candidates2)
@@ -294,6 +296,10 @@ def process_sent(sentence, features, relations, positions):
 
 
 def sent_results(sentence, features, relations, positions):
+    """
+    This function takes as arguments all the parameters of the query (features, relations, positions) and returns a set of results
+    taking into account the optional nodes
+    """
     # adapting queries to extract cores
     core_query = optional.get_core_queries(features)
     adapted_core_relations = optional.adapt_condition_list(core_query, relations)
