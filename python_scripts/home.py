@@ -8,6 +8,8 @@ import relations
 import positions
 import search
 import results
+import valideasy
+import error_frame
 
 
 class MainFrame(wx.Frame):
@@ -47,28 +49,32 @@ class MainFrame(wx.Frame):
         """
         # setting the attributes passed to the previous panel (file name and then conllu document)
         if hasattr(self.file_chooser, "file_path"):
-            setattr(self, "file", self.file_chooser.file_path)
-        # else:
-            # setattr(self.file_chooser, "file_path", "/home/bavagliladri/UD_Latin-PROIEL.conllu")
-            # setattr(self, "file", self.file_chooser.file_path)
-        setattr(self, "treebank", udapi.Document(self.file))
+            self.file = self.file_chooser.file_path
+        
+        # TODO validate file and open only if passes the validation
+        errors = valideasy.validate(self.file)
+        if errors:
+            errors = 'Please, correct the following errors in the treebank before loading the treebank\n' + errors
+            setattr(self, "error_frm", error_frame.ErrorFrame(self, errors))
+        else:
+            setattr(self, "treebank", udapi.Document(self.file))
 
-        # if a nodes panel has not yet been shown, create one
-        if not hasattr(self, "nodes_panel"):
-            setattr(self, "nodes_panel", nodes.Nodes(self.main_panel))
-            self.main_sizer.Add(getattr(self, "nodes_panel"), 0, wx.ALL | wx.ALIGN_LEFT, 10)
-            btns_sizer = wx.BoxSizer(wx.HORIZONTAL)
-            setattr(self, "btn_nodes_panel", wx.Button(self.main_panel, label="Confirm"))
-            self.btn_nodes_panel.Bind(wx.EVT_BUTTON, self.show_other_panels)
-            setattr(self, "btn_reset_nodes", wx.Button(self.main_panel, label="Clear All"))
-            self.btn_reset_nodes.Bind(wx.EVT_BUTTON, self.reset)
-            btns_sizer.Add(self.btn_nodes_panel, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-            btns_sizer.Add(self.btn_reset_nodes, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
-            self.main_sizer.Add(btns_sizer, 0, wx.ALL | wx.ALIGN_CENTER, 5)
-            self.main_panel.SetSizer(self.main_sizer)
-            self.main_panel.Layout()
-            self.main_panel.SetupScrolling(scrollToTop=False)
-            self.main_panel.Scroll(-1, self.main_panel.GetScrollRange(wx.VERTICAL))
+            # if a nodes panel has not yet been shown, create one
+            if not hasattr(self, "nodes_panel"):
+                setattr(self, "nodes_panel", nodes.Nodes(self.main_panel))
+                self.main_sizer.Add(getattr(self, "nodes_panel"), 0, wx.ALL | wx.ALIGN_LEFT, 10)
+                btns_sizer = wx.BoxSizer(wx.HORIZONTAL)
+                setattr(self, "btn_nodes_panel", wx.Button(self.main_panel, label="Confirm"))
+                self.btn_nodes_panel.Bind(wx.EVT_BUTTON, self.show_other_panels)
+                setattr(self, "btn_reset_nodes", wx.Button(self.main_panel, label="Clear All"))
+                self.btn_reset_nodes.Bind(wx.EVT_BUTTON, self.reset)
+                btns_sizer.Add(self.btn_nodes_panel, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+                btns_sizer.Add(self.btn_reset_nodes, 0, wx.ALL | wx.ALIGN_CENTER_VERTICAL, 5)
+                self.main_sizer.Add(btns_sizer, 0, wx.ALL | wx.ALIGN_CENTER, 5)
+                self.main_panel.SetSizer(self.main_sizer)
+                self.main_panel.Layout()
+                self.main_panel.SetupScrolling(scrollToTop=False)
+                self.main_panel.Scroll(-1, self.main_panel.GetScrollRange(wx.VERTICAL))
 
     def show_other_panels(self, event):
         # setting the attributes passed to the previous panel (node's names)
