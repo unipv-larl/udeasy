@@ -43,6 +43,12 @@ can now press on the `Confirm button`.
 
 ![main_frame2](img/main_frame2.png)
 
+**new in version 1.1.0**
+
+In case you try to load a treebank file that do not meet all the rules of CoNLL-U, a window will pop up describing the error that blocked the operation.
+
+![error_frame](img/error_frame.png)
+
 ### Giving a name to the target nodes
 
 When clicking on the `Confirm button`, the nodes panel appears. The user
@@ -208,15 +214,14 @@ From any window showing results (patterns or stats) it is possible to export the
 to a txt file. To do so, just select the _File > Save as..._ option in the menu and choose
 the path where to save the txt file.
 
-**new in version 1.0.0**
+**new in version 1.1.0**
 
 It is also possible to export the results as csv files:
 
 * export the patterns: in the results window select `File > Export as csv` and select a path where
-to store the csv file. The dataframe will have the following columns:
-  * sent_id
-  * text
-  * a column for each target node
+to store the csv file. A window will pop up and ask for the fields you want to include in the dataframe.
+
+![export_csv_frame](img/export_csv_fields.png)
 
 * export the stats: in the stats window, select `File > Export csv(s)` and select a directory where
 to store the csv files. UDeasy will give automatically a name to these files (`stats_results_[number].csv`).

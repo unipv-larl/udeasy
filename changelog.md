@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.0] - 2022-12-09
+
+### Added
+
+- Added the validation of the treebank with explanation of the errors
+- Export results as csv file selecting the fields to export
+
+### Fixed
+
+- Correction of minor bugs
+
+***
+
 ## [1.0.0] - 2022-10-24
 
 ### Added
