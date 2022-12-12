@@ -45,7 +45,7 @@ def validate(file_treebank: str) -> str:
                 if len(fields) != 10:
                     raise ConlluError(type='columns', line=(lines.index(l) + 1))
                 else:
-                        if '-' not in fields[0]:
+                        if '-' not in fields[0] and '.' not in fields[0]:
                             try:
                                 int(fields[0])
                             except IndexError:
