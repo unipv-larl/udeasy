@@ -67,6 +67,6 @@ def validate(file_treebank: str) -> str:
         try:
             udapi.Document(file_treebank)
         except ValueError as udapi_err:
-            errors += str(udapi_err) + '\n'
+            errors += str(udapi_err) + ' \n'
 
     return errors
