@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.1] - 2022-12-12
+
+### Fixed
+
+- Correction of a bug in the validation script
+
+***
+
 ## [1.1.0] - 2022-12-09
 
 ### Added
