@@ -42,6 +42,7 @@ jobs:
                 pyinstaller -F -w -i img/udeasy.ico -n udeasy python_scripts/home.py &&
                 cd dist/ &&
                 mkdir udeasy-dmg &&
+                mv udeasy udeasy-dmg/udeasy
                 hdiutil create -volname udeasy -srcfolder udeasy-dmg/ -ov -format UDZO udeasy.dmg
             OUT_FILE_NAME: udeasy.dmg
             ASSET_MIME: application/octet-stream
