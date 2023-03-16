@@ -50,7 +50,7 @@ class MainFrame(wx.Frame):
         # setting the attributes passed to the previous panel (file name and then conllu document)
         if hasattr(self.file_chooser, "file_path"):
             self.file = self.file_chooser.file_path
-        
+
         # validate file and open only if passes the validation
         errors = valideasy.validate(self.file)
         if errors:
@@ -132,7 +132,8 @@ class MainFrame(wx.Frame):
             self.main_panel.SetSizer(self.main_sizer)
             self.main_panel.Layout()
             self.main_panel.SetupScrolling(scrollToTop=False)
-            self.main_panel.Scroll(-1, self.main_panel.GetScrollRange(wx.VERTICAL))
+            self.main_panel.Scroll(-1,
+                                   self.main_panel.GetScrollRange(wx.VERTICAL))
 
         # if something changes in the nodes panel
         elif hasattr(self, "feats_panel") and self.feats_panel.node_names != self.node_names:
@@ -220,8 +221,8 @@ class MainFrame(wx.Frame):
             p['dist'] = pos_row.pos.GetValue()
             self.positions.append(p)
 
-        #TODO here create the YAML file and store it somewhere
-        #TODO add a button to save and export the query
+        # TODO here create the YAML file and store it somewhere
+        # TODO add a button to save and export the query
 
         # results object
         setattr(self, "res", search.QueryResults())

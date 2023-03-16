@@ -45,7 +45,7 @@ jobs:
                 mv udeasy udeasy-dmg/udeasy &&
                 hdiutil create -volname udeasy -srcfolder udeasy-dmg/ -ov -format UDZO udeasy.dmg
             OUT_FILE_NAME: udeasy.dmg
-            ASSET_MIME: application/octet-stream
+            ASSET_MIME: application/x-apple-diskimage
           - os: windows-latest
             TARGET: windows
             CMD_BUILD: pyinstaller -F -w -i img/udeasy.ico -n udeasy python_scripts/home.py
