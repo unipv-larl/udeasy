@@ -1,0 +1,29 @@
+features:
+  adj:
+    Number: '###NOT###Sing'
+    optional: true
+    upos: ADJ
+  noun:
+    Gender: '###NOT###Masc'
+    deprel: obj
+    optional: false
+    upos: NOUN
+  verb:
+    optional: false
+    upos: VERB
+positions:
+- by: ''
+  dist: ''
+  node1: ''
+  node2: ''
+  rel: ''
+relations:
+- node1: verb
+  node2: noun
+  rel: is parent of
+- node1: noun
+  node2: adj
+  rel: is parent of
+show_conllu: true
+show_sent: true
+show_trees: false

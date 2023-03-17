@@ -221,8 +221,12 @@ class MainFrame(wx.Frame):
             p['dist'] = pos_row.pos.GetValue()
             self.positions.append(p)
 
-        # TODO here create the YAML file and store it somewhere
-        # TODO add a button to save and export the query
+        data = {'features': self.features,
+                'relations': self.relations,
+                'positions': self.positions,
+                'show_sent': self.cb_sentences.GetValue(),
+                'show_conllu': self.cb_conllu.GetValue(),
+                'show_trees': self.cb_trees.GetValue()}
 
         # results object
         setattr(self, "res", search.QueryResults())
@@ -232,7 +236,7 @@ class MainFrame(wx.Frame):
 
         # show results
         if not self.res.abort:
-            setattr(self, "res_frame", results.ResultsFrame(self, self.res))
+            setattr(self, "res_frame", results.ResultsFrame(self, self.res, data))
 
     def reset(self, event, delete_everything=True):
         # defining the lists of objects to be deleted
