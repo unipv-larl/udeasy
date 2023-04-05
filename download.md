@@ -14,7 +14,7 @@ Check the [changelog](changelog.md) to see in detail all the changes to this pro
 |-------------|----------------------------------------------------------------------------------------------------------------|
 | **Ubuntu**  | [Download deb package](https://github.com/unipv-larl/udeasy/releases/download/v1.1.1/udeasy_1.1.1-1_amd64.deb) |
 | **Windows** | [Download the exe file](https://github.com/unipv-larl/udeasy/releases/download/v1.1.1/udeasy.exe)                                                                                               |
-| **MacOS**   | [Download the app bundle](https://github.com/unipv-larl/udeasy/releases/download/v1.1.1/udeasy.zip)            |
+| **MacOS**   | [Download the dmg file](https://github.com/unipv-larl/udeasy/releases/download/v1.1.1/udeasy_1.1.1.dmg)            |
 
 ---
 
@@ -24,7 +24,6 @@ Check the [changelog](changelog.md) to see in detail all the changes to this pro
 |-------------|----------------------------------------------------------------------------------------------------------------|
 | **Ubuntu**  | [Download deb package](https://github.com/unipv-larl/udeasy/releases/download/v1.1.0/udeasy_1.1.0-1_amd64.deb) |
 | **Windows** | [Download the exe file](https://github.com/unipv-larl/udeasy/releases/download/v1.1.0/udeasy.exe)                                                                                               |
-| **MacOS**   | [Download the app bundle](https://github.com/unipv-larl/udeasy/releases/download/v1.1.0/udeasy.zip)            |
 
 ---
 
@@ -34,7 +33,6 @@ Check the [changelog](changelog.md) to see in detail all the changes to this pro
 |-------------|----------------------------------------------------------------------------------------------------------------|
 | **Ubuntu**  | [Download deb package](https://github.com/unipv-larl/udeasy/releases/download/v1.0.0/udeasy_1.0.0-1_amd64.deb) |
 | **Windows** | [Download the exe file](https://github.com/unipv-larl/udeasy/releases/download/v1.0.0/udeasy.exe)                                                                                               |
-| **MacOS**   | [Download the app bundle](https://github.com/unipv-larl/udeasy/releases/download/v1.0.0/udeasy.zip)            |
 
 ---
 
