@@ -1,3 +1,5 @@
+
+	begin{frame}{Cos   UD	misc_files/discorsi/presentation/presentation.tex	/^	\\subsection{Cos'è UD}$/;"	u
 !_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
 !_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
@@ -44,6 +46,8 @@
 'sqlalchemy.types'	ubuntu64/build/udeasy/xref-udeasy.html	/^  <a name="'sqlalchemy.types'"><\/a>$/;"	a
 'typing.io'	ubuntu64/build/udeasy/xref-udeasy.html	/^  <a name="'typing.io'"><\/a>$/;"	a
 'win32com.shell'	ubuntu64/build/udeasy/xref-udeasy.html	/^  <a name="'win32com.shell'"><\/a>$/;"	a
+A cosa servono	misc_files/discorsi/presentation/presentation.tex	/^	\\subsection{A cosa servono}$/;"	u
+Annotazione secondo le guidelines	misc_files/discorsi/presentation/presentation.tex	/^	\\subsection{Annotazione secondo le guidelines}$/;"	u
 AppKit	ubuntu64/build/udeasy/xref-udeasy.html	/^  <a name="AppKit"><\/a>$/;"	a
 Available tools	misc_files/presentation/udeasy_presentation.tex	/^\\subsection{Available tools}$/;"	u
 Bibliographical References	misc_files/udeasy_paper/udeasy_paper.tex	/^\\section{Bibliographical References}\\label{reference}$/;"	s
@@ -53,6 +57,8 @@ Carbon	win32/0.1.0/build/udeasy/xref-udeasy.html	/^  <a name="Carbon"><\/a>$/;"	
 Carbon	win32/0.1.1/build/udeasy/xref-udeasy.html	/^  <a name="Carbon"><\/a>$/;"	a
 CoNLL-U viewer	misc_files/udeasy_paper/udeasy_paper.tex	/^\\subsection{CoNLL-U viewer}$/;"	u
 Conclusion and Future Work	misc_files/udeasy_paper/udeasy_paper.tex	/^\\section{Conclusion and Future Work}$/;"	s
+Cos è UD}
+Cosa sono	misc_files/discorsi/presentation/presentation.tex	/^	\\subsection{Cosa sono}$/;"	u
 Design a query	misc_files/presentation/udeasy_presentation.tex	/^\\subsection{Design a query}$/;"	u
 Foundation	ubuntu64/build/udeasy/xref-udeasy.html	/^  <a name="Foundation"><\/a>$/;"	a
 Grew-match	misc_files/udeasy_paper/udeasy_paper.tex	/^\\subsection{Grew-match}$/;"	u
@@ -76,9 +82,11 @@ StringIO	win32/0.1.0/build/udeasy/xref-udeasy.html	/^  <a name="StringIO"><\/a>$
 StringIO	win32/0.1.1/build/udeasy/xref-udeasy.html	/^  <a name="StringIO"><\/a>$/;"	a
 T   NDRA	misc_files/udeasy_paper/udeasy_paper.tex	/^\\subsection{TüNDRA}$/;"	u
 Tools	misc_files/udeasy_paper/udeasy_paper.tex	/^\\section{Tools}$/;"	s
+Treebank	misc_files/discorsi/presentation/presentation.tex	/^	\\section{Treebank}$/;"	s
 UDAPI	misc_files/udeasy_paper/udeasy_paper.tex	/^\\subsection{UDAPI}$/;"	u
 UDeasy	misc_files/presentation/udeasy_presentation.tex	/^\\section{UDeasy}$/;"	s
 UDeasy	misc_files/udeasy_paper/udeasy_paper.tex	/^\\section{UDeasy}$/;"	s
+Universal Dependencies	misc_files/discorsi/presentation/presentation.tex	/^	\\section{Universal Dependencies}$/;"	s
 UserDict	ubuntu64/build/udeasy/xref-udeasy.html	/^  <a name="UserDict"><\/a>$/;"	a
 Visualizing the results	misc_files/presentation/udeasy_presentation.tex	/^\\subsection{Visualizing the results}$/;"	u
 Why UDeasy	misc_files/presentation/udeasy_presentation.tex	/^\\subsection{Why UDeasy}$/;"	u
