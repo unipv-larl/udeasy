@@ -15,6 +15,7 @@ ___
 ### [Download](download.md)
 ### [User guide](user_guide.md)
 ### [Contacts](contacts.md)
+### [Tutorials](tutorials.md)
 
 ___
 

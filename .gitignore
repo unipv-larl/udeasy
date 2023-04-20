@@ -23,6 +23,7 @@ share/python-wheels/
 MANIFEST
 Gemfile
 release.sh
+build_deb.sh
 
 # IDE settings
 .idea/

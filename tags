@@ -1,5 +1,7 @@
 
+	
 	begin{frame}{Cos   UD	misc_files/discorsi/presentation/presentation.tex	/^	\\subsection{Cos'è UD}$/;"	u
+	begin{frame}{L Italiano   una lingua pro-drop 	misc_files/discorsi/presentation/presentation.tex	/^	\\subsection{L'italiano è una lingua pro-drop?}$/;"	u
 !_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
 !_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
@@ -46,8 +48,8 @@
 'sqlalchemy.types'	ubuntu64/build/udeasy/xref-udeasy.html	/^  <a name="'sqlalchemy.types'"><\/a>$/;"	a
 'typing.io'	ubuntu64/build/udeasy/xref-udeasy.html	/^  <a name="'typing.io'"><\/a>$/;"	a
 'win32com.shell'	ubuntu64/build/udeasy/xref-udeasy.html	/^  <a name="'win32com.shell'"><\/a>$/;"	a
+A cosa serve	misc_files/discorsi/presentation/presentation.tex	/^	\\subsection{A cosa serve}$/;"	u
 A cosa servono	misc_files/discorsi/presentation/presentation.tex	/^	\\subsection{A cosa servono}$/;"	u
-Annotazione secondo le guidelines	misc_files/discorsi/presentation/presentation.tex	/^	\\subsection{Annotazione secondo le guidelines}$/;"	u
 AppKit	ubuntu64/build/udeasy/xref-udeasy.html	/^  <a name="AppKit"><\/a>$/;"	a
 Available tools	misc_files/presentation/udeasy_presentation.tex	/^\\subsection{Available tools}$/;"	u
 Bibliographical References	misc_files/udeasy_paper/udeasy_paper.tex	/^\\section{Bibliographical References}\\label{reference}$/;"	s
@@ -67,6 +69,8 @@ How to use UDeasy	misc_files/udeasy_paper/udeasy_paper.tex	/^\\subsection{How to
 IPython	ubuntu64/build/udeasy/xref-udeasy.html	/^  <a name="IPython"><\/a>$/;"	a
 Introduction	misc_files/presentation/udeasy_presentation.tex	/^\\section{Introduction}$/;"	s
 Introduction	misc_files/udeasy_paper/udeasy_paper.tex	/^\\section{Introduction}$/;"	s
+L    italiano   una lingua SVO 	misc_files/discorsi/presentation/presentation.tex	/^	\\subsection{L’italiano è una lingua SVO?}$/;"	u
+L italiano è una lingua pro-drop?}
 Naming the nodes	misc_files/udeasy_paper/udeasy_paper.tex	/^\\subsubsection{Naming the nodes}$/;"	b
 PyQt4	ubuntu64/build/udeasy/xref-udeasy.html	/^  <a name="PyQt4"><\/a>$/;"	a
 PyQt5	ubuntu64/build/udeasy/xref-udeasy.html	/^  <a name="PyQt5"><\/a>$/;"	a
@@ -74,6 +78,7 @@ Results	misc_files/udeasy_paper/udeasy_paper.tex	/^\\subsubsection{Results}$/;"	
 Selecting the features for each target node	misc_files/udeasy_paper/udeasy_paper.tex	/^\\subsubsection{Selecting the features for each target node}$/;"	b
 Specifying the relations among nodes	misc_files/udeasy_paper/udeasy_paper.tex	/^\\subsubsection{Specifying the relations among nodes}$/;"	b
 Specifying the relative positions among nodes	misc_files/udeasy_paper/udeasy_paper.tex	/^\\subsubsection{Specifying the relative positions among nodes}$/;"	b
+Stare  X	misc_files/discorsi/presentation/presentation.tex	/^	\\subsection{Stare + X}$/;"	u
 Statistics	misc_files/presentation/udeasy_presentation.tex	/^\\subsection{Statistics}$/;"	u
 Statistics	misc_files/udeasy_paper/udeasy_paper.tex	/^\\subsubsection{Statistics}$/;"	b
 StringIO	MacOS/build/udeasy/xref-udeasy.html	/^  <a name="StringIO"><\/a>$/;"	a
@@ -84,6 +89,7 @@ T   NDRA	misc_files/udeasy_paper/udeasy_paper.tex	/^\\subsection{TüNDRA}$/;"	u
 Tools	misc_files/udeasy_paper/udeasy_paper.tex	/^\\section{Tools}$/;"	s
 Treebank	misc_files/discorsi/presentation/presentation.tex	/^	\\section{Treebank}$/;"	s
 UDAPI	misc_files/udeasy_paper/udeasy_paper.tex	/^\\subsection{UDAPI}$/;"	u
+UDeasy	misc_files/discorsi/presentation/presentation.tex	/^	\\section{UDeasy}$/;"	s
 UDeasy	misc_files/presentation/udeasy_presentation.tex	/^\\section{UDeasy}$/;"	s
 UDeasy	misc_files/udeasy_paper/udeasy_paper.tex	/^\\section{UDeasy}$/;"	s
 Universal Dependencies	misc_files/discorsi/presentation/presentation.tex	/^	\\section{Universal Dependencies}$/;"	s
