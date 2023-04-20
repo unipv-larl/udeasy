@@ -19,7 +19,7 @@ class QueryResults:
         self.count = {'number of sentences': 0, 'matched sentences': 0, 'matched patterns': 0}
         self.abort = False
 
-    def process(self, tb, features, relations, positions, show_sent, show_conllu, show_trees):
+    def process(self, tb=None, features=None, relations=None, positions=None, show_sent=False, show_conllu=False, show_trees=False):
         """
         This function takes as argument the parameters inserted in the main frame and returns a tuple containing:
             - the matched patterns in a str format
@@ -102,28 +102,59 @@ def match_condition(node, c):
             return True
         elif not hasattr(node, key):
             if key not in node.feats and key not in node.misc:
-                return convert(False, change_value)
+                if not change_value:
+                    return False
             elif isinstance(str2list(val), list):
                 if key in node.feats:
-                    if node.feats[key] not in str2list(val):
-                        return convert(False, change_value)
+                    if node.feats[key] in str2list(val):
+                        if change_value:
+                            return False
+                    else:
+                        if not change_value:
+                            return False
+                elif key in node.misc:
+                    if node.misc[key] in str2list(val):
+                        if change_value:
+                            return False
+                    else:
+                        if not change_value:
+                            return False
                 else:
-                    if node.misc[key] not in str2list(val):
-                        return convert(False, change_value)
+                    if not change_value:
+                        return False
             else:
                 if key in node.feats:
-                    if node.feats[key] != val:
-                        return convert(False, change_value)
+                    if node.feats[key] == val:
+                        if change_value:
+                            return False
+                    else:
+                        if not change_value:
+                            return False
+                elif key in node.misc:
+                    if node.misc[key] == val:
+                        if change_value:
+                            return False
+                    else:
+                        if not change_value:
+                            return False
                 else:
-                    if node.misc[key] != val:
-                        return convert(False, change_value)
+                    if not change_value:
+                        return False
         elif isinstance(str2list(val), list):
-            if getattr(node, key) not in str2list(val):
-                return convert(False, change_value)
+            if getattr(node, key) in str2list(val):
+                if change_value:
+                    return False
+            else:
+                if not change_value:
+                    return False
         else:
-            if getattr(node, key) != val:
-                return convert(False, change_value)
-    return convert(True, change_value)
+            if getattr(node, key) == val:
+                if change_value:
+                    return False
+            else:
+                if not change_value:
+                    return False
+    return True
 
 
 def condition_matched(condition, bundle):

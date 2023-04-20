@@ -62,7 +62,10 @@ class MainFrame(wx.Frame):
             errors = 'Please, correct the following errors in the treebank before loading the treebank\n' + errors
             setattr(self, "error_frm", error_frame.ErrorFrame(self, errors))
         else:
-            setattr(self, "treebank", udapi.Document(self.file))
+            try:
+                setattr(self, "treebank", udapi.Document(self.file))
+            except Exception as err:
+                setattr(self, "error_frm", error_frame.ErrorFrame(self, str(err)))
 
             if not hasattr(self, "import_panel"):
                 setattr(self, "import_panel", import_export_query.QueryChooser(self.main_panel))
