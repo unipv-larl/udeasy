@@ -2,6 +2,7 @@
 	
 	begin{frame}{Cos   UD	misc_files/discorsi/presentation/presentation.tex	/^	\\subsection{Cos'è UD}$/;"	u
 	begin{frame}{L Italiano   una lingua pro-drop 	misc_files/discorsi/presentation/presentation.tex	/^	\\subsection{L'italiano è una lingua pro-drop?}$/;"	u
+	begin{frame}{L Italiano   una lingua pro-drop 	misc_files/rolling_seminar/presentation/presentation.tex	/^	\\subsection{L'italiano è una lingua pro-drop?}$/;"	u
 !_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
 !_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
@@ -62,6 +63,7 @@ Conclusion and Future Work	misc_files/udeasy_paper/udeasy_paper.tex	/^\\section{
 Cos è UD}
 Cosa sono	misc_files/discorsi/presentation/presentation.tex	/^	\\subsection{Cosa sono}$/;"	u
 Design a query	misc_files/presentation/udeasy_presentation.tex	/^\\subsection{Design a query}$/;"	u
+Format	misc_files/rolling_seminar/presentation/presentation.tex	/^	\\subsection{Format}$/;"	u
 Foundation	ubuntu64/build/udeasy/xref-udeasy.html	/^  <a name="Foundation"><\/a>$/;"	a
 Grew-match	misc_files/udeasy_paper/udeasy_paper.tex	/^\\subsection{Grew-match}$/;"	u
 How to use UDeasy	misc_files/presentation/udeasy_presentation.tex	/^\\section{How to use UDeasy}$/;"	s
@@ -70,6 +72,7 @@ IPython	ubuntu64/build/udeasy/xref-udeasy.html	/^  <a name="IPython"><\/a>$/;"	a
 Introduction	misc_files/presentation/udeasy_presentation.tex	/^\\section{Introduction}$/;"	s
 Introduction	misc_files/udeasy_paper/udeasy_paper.tex	/^\\section{Introduction}$/;"	s
 L    italiano   una lingua SVO 	misc_files/discorsi/presentation/presentation.tex	/^	\\subsection{L’italiano è una lingua SVO?}$/;"	u
+L    italiano   una lingua SVO 	misc_files/rolling_seminar/presentation/presentation.tex	/^	\\subsection{L’italiano è una lingua SVO?}$/;"	u
 L italiano è una lingua pro-drop?}
 Naming the nodes	misc_files/udeasy_paper/udeasy_paper.tex	/^\\subsubsection{Naming the nodes}$/;"	b
 PyQt4	ubuntu64/build/udeasy/xref-udeasy.html	/^  <a name="PyQt4"><\/a>$/;"	a
@@ -79,6 +82,7 @@ Selecting the features for each target node	misc_files/udeasy_paper/udeasy_paper
 Specifying the relations among nodes	misc_files/udeasy_paper/udeasy_paper.tex	/^\\subsubsection{Specifying the relations among nodes}$/;"	b
 Specifying the relative positions among nodes	misc_files/udeasy_paper/udeasy_paper.tex	/^\\subsubsection{Specifying the relative positions among nodes}$/;"	b
 Stare  X	misc_files/discorsi/presentation/presentation.tex	/^	\\subsection{Stare + X}$/;"	u
+Stare  X	misc_files/rolling_seminar/presentation/presentation.tex	/^	\\subsection{Stare + X}$/;"	u
 Statistics	misc_files/presentation/udeasy_presentation.tex	/^\\subsection{Statistics}$/;"	u
 Statistics	misc_files/udeasy_paper/udeasy_paper.tex	/^\\subsubsection{Statistics}$/;"	b
 StringIO	MacOS/build/udeasy/xref-udeasy.html	/^  <a name="StringIO"><\/a>$/;"	a
@@ -88,15 +92,22 @@ StringIO	win32/0.1.1/build/udeasy/xref-udeasy.html	/^  <a name="StringIO"><\/a>$
 T   NDRA	misc_files/udeasy_paper/udeasy_paper.tex	/^\\subsection{TüNDRA}$/;"	u
 Tools	misc_files/udeasy_paper/udeasy_paper.tex	/^\\section{Tools}$/;"	s
 Treebank	misc_files/discorsi/presentation/presentation.tex	/^	\\section{Treebank}$/;"	s
+Treebanks	misc_files/rolling_seminar/presentation/presentation.tex	/^	\\section{Treebanks}$/;"	s
 UDAPI	misc_files/udeasy_paper/udeasy_paper.tex	/^\\subsection{UDAPI}$/;"	u
 UDeasy	misc_files/discorsi/presentation/presentation.tex	/^	\\section{UDeasy}$/;"	s
 UDeasy	misc_files/presentation/udeasy_presentation.tex	/^\\section{UDeasy}$/;"	s
+UDeasy	misc_files/rolling_seminar/presentation/presentation.tex	/^	\\section{UDeasy}$/;"	s
 UDeasy	misc_files/udeasy_paper/udeasy_paper.tex	/^\\section{UDeasy}$/;"	s
 Universal Dependencies	misc_files/discorsi/presentation/presentation.tex	/^	\\section{Universal Dependencies}$/;"	s
+Universal Dependencies	misc_files/rolling_seminar/presentation/presentation.tex	/^	\\section{Universal Dependencies}$/;"	s
 UserDict	ubuntu64/build/udeasy/xref-udeasy.html	/^  <a name="UserDict"><\/a>$/;"	a
 Visualizing the results	misc_files/presentation/udeasy_presentation.tex	/^\\subsection{Visualizing the results}$/;"	u
+What is UD	misc_files/rolling_seminar/presentation/presentation.tex	/^	\\subsection{What is UD}$/;"	u
+What is UDeasy	misc_files/rolling_seminar/presentation/presentation.tex	/^	\\subsection{What is UDeasy}$/;"	u
+What is a treebank	misc_files/rolling_seminar/presentation/presentation.tex	/^	\\subsection{What is a treebank}$/;"	u
 Why UDeasy	misc_files/presentation/udeasy_presentation.tex	/^\\subsection{Why UDeasy}$/;"	u
 Why UDeasy	misc_files/udeasy_paper/udeasy_paper.tex	/^\\subsection{Why UDeasy}$/;"	u
+Why treebank are useful	misc_files/rolling_seminar/presentation/presentation.tex	/^	\\subsection{Why treebank are useful}$/;"	u
 __builtin__	ubuntu64/build/udeasy/xref-udeasy.html	/^  <a name="__builtin__"><\/a>$/;"	a
 __future__	MacOS/build/udeasy/xref-udeasy.html	/^  <a name="__future__"><\/a>$/;"	a
 __future__	ubuntu64/build/udeasy/xref-udeasy.html	/^  <a name="__future__"><\/a>$/;"	a
