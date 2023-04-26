@@ -23,7 +23,6 @@ share/python-wheels/
 *.spec
 MANIFEST
 release.sh
-build_deb.sh
 
 # IDE settings
 .idea/
