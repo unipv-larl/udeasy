@@ -46,5 +46,3 @@ class ChooseFile(wx.Panel):
         self.main_sizer.Add(self.second_sizer, 0, wx.EXPAND | wx.ALL, 5)
         self.SetSizer(self.main_sizer)
         self.Parent.Layout()
-        self.Parent.SetupScrolling()
-        self.Layout()

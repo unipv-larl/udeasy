@@ -2,21 +2,24 @@ import wx
 import wx.lib.newevent
 import stats_query_frame
 import export_results
+import import_export_query
 import pandas as pd
 
 
 ID_STATS_FRAME = wx.NewId()
 ID_COUNT = wx.NewId()
 ID_EXPORT = wx.NewId()
+ID_EXPORT_QUERY = wx.NewId()
 
 
 class ResultsFrame(wx.Frame):
     """
     The frame in which the matched patterns are shown
     """
-    def __init__(self, parent, res):
+    def __init__(self, parent, res, query):
         super().__init__(parent, title="matched patterns", size=(600, 400))
         self.res = res
+        self.query = query
 
         self.panel = wx.Panel(self)
         self.results_text = wx.TextCtrl(self.panel, id=-1, style=wx.TE_MULTILINE | wx.TE_RICH2, value=self.res.string)
@@ -35,6 +38,8 @@ class ResultsFrame(wx.Frame):
         fileMenu.Append(item_saveas)
         item_exportcsv = wx.MenuItem(fileMenu, ID_EXPORT, text="Export as csv")
         fileMenu.Append(item_exportcsv)
+        item_export_query = wx.MenuItem(fileMenu, ID_EXPORT_QUERY, text="Save query")
+        fileMenu.Append(item_export_query)
         menubar.Append(fileMenu, "&File")
 
         statsMenu = wx.Menu()
@@ -68,6 +73,20 @@ class ResultsFrame(wx.Frame):
 
         elif id == ID_EXPORT:
             csv_frame = export_results.ExportFrame(self, self.res.results)
+
+        elif id == ID_EXPORT_QUERY:
+            wildcard = "YAML file (*.yaml;*.yml;*.YAML;*.YML)|*.yaml;*.yml;*.YAML;*.YML|" \
+                       "All files (*.*)|*.*"
+            dlg = wx.FileDialog(
+                self, message="Export query as...",
+                defaultDir="",
+                defaultFile="",
+                wildcard=wildcard,
+                style=wx.FD_SAVE
+            )
+            if dlg.ShowModal() == wx.ID_OK:
+                dest = dlg.GetPath()
+                import_export_query.export_q(self.query, dest)
 
         elif id == ID_STATS_FRAME:
             stats_frame = stats_query_frame.StatsFrame(self, self.res.results)

@@ -10,6 +10,10 @@ import search
 import results
 import valideasy
 import error_frame
+import import_export_query
+
+
+ID_IMPORT_QUERY = wx.NewId()
 
 
 class MainFrame(wx.Frame):
@@ -42,6 +46,7 @@ class MainFrame(wx.Frame):
         self.main_sizer.Add(btn_file_chooser, 0, wx.ALL | wx.ALIGN_CENTER, 5)
         self.main_panel.SetSizer(self.main_sizer)
 
+
     def show_nodes_panel(self, event):
         """
         Function that runs when the confirm button in the main frame is pressed.
@@ -57,7 +62,19 @@ class MainFrame(wx.Frame):
             errors = 'Please, correct the following errors in the treebank before loading the treebank\n' + errors
             setattr(self, "error_frm", error_frame.ErrorFrame(self, errors))
         else:
-            setattr(self, "treebank", udapi.Document(self.file))
+            try:
+                setattr(self, "treebank", udapi.Document(self.file))
+            except Exception as err:
+                setattr(self, "error_frm", error_frame.ErrorFrame(self, str(err)))
+
+            if not hasattr(self, "import_panel"):
+                setattr(self, "import_panel", import_export_query.QueryChooser(self.main_panel))
+                self.main_sizer.Add(getattr(self, "import_panel"), 0, wx.ALL | wx.ALIGN_LEFT, 10)
+                btns_sizer_import = wx.BoxSizer(wx.HORIZONTAL)
+                setattr(self, "btn_import", wx.Button(self.main_panel, id=ID_IMPORT_QUERY, label="Import query"))
+                self.btn_import.Bind(wx.EVT_BUTTON, self.search)
+                btns_sizer_import.Add(self.btn_import, 0, wx.ALL | wx.ALIGN_CENTER, 5)
+                self.main_sizer.Add(btns_sizer_import, 0, wx.ALL | wx.ALIGN_CENTER, 5)
 
             # if a nodes panel has not yet been shown, create one
             if not hasattr(self, "nodes_panel"):
@@ -180,59 +197,78 @@ class MainFrame(wx.Frame):
             self.main_panel.Scroll(-1, self.main_panel.GetScrollRange(wx.VERTICAL))
 
     def search(self, event):
-        # creating the feats dict
-        setattr(self, "features", {n: {} for n in self.node_names})
-        for node in self.features:
-            feat_node_panel = getattr(self.feats_panel, f"node_panel_{node}")
-            for i in feat_node_panel.ids:
-                feat_row = getattr(feat_node_panel, f"feat_row{i}")
-                key = feat_row.feat_field.GetValue()
-                flag = feat_row.value_flag.GetValue()
-                if flag == 'value is':
-                    f = True
-                else:
-                    f = False
-                val = feat_row.value_field.GetValue()
-                if f:
-                    self.features[node][key] = val
-                else:
-                    self.features[node][key] = f'###NOT###{val}'
-            self.features[node]['optional'] = self.node_names[node]
+        id_event = event.GetId()
+        if id_event != ID_IMPORT_QUERY:
+            # creating the feats dict
+            setattr(self, "features", {n: {} for n in self.node_names})
+            for node in self.features:
+                feat_node_panel = getattr(self.feats_panel, f"node_panel_{node}")
+                for i in feat_node_panel.ids:
+                    feat_row = getattr(feat_node_panel, f"feat_row{i}")
+                    key = feat_row.feat_field.GetValue()
+                    flag = feat_row.value_flag.GetValue()
+                    if flag == 'value is':
+                        f = True
+                    else:
+                        f = False
+                    val = feat_row.value_field.GetValue()
+                    if f:
+                        self.features[node][key] = val
+                    else:
+                        self.features[node][key] = f'###NOT###{val}'
+                self.features[node]['optional'] = self.node_names[node]
 
-        # creating the relations list
-        setattr(self, "relations", [])
-        for i in getattr(self.relations_panel, "ids"):
-            rel_row = getattr(self.relations_panel, f"rel_row{i}")
-            r = {}
-            r['node1'] = rel_row.node1.GetValue()
-            r['rel'] = rel_row.rel.GetValue()
-            r['node2'] = rel_row.node2.GetValue()
-            self.relations.append(r)
+            # creating the relations list
+            setattr(self, "relations", [])
+            for i in getattr(self.relations_panel, "ids"):
+                rel_row = getattr(self.relations_panel, f"rel_row{i}")
+                r = {}
+                r['node1'] = rel_row.node1.GetValue()
+                r['rel'] = rel_row.rel.GetValue()
+                r['node2'] = rel_row.node2.GetValue()
+                self.relations.append(r)
 
-        # creating the positions list
-        setattr(self, "positions", [])
-        for i in getattr(self.positions_panel, "ids"):
-            pos_row = getattr(self.positions_panel, f"pos_row{i}")
-            p = {}
-            p['node1'] = pos_row.node1.GetValue()
-            p['rel'] = pos_row.rel.GetValue()
-            p['node2'] = pos_row.node2.GetValue()
-            p['by'] = pos_row.by.GetValue()
-            p['dist'] = pos_row.pos.GetValue()
-            self.positions.append(p)
+            # creating the positions list
+            setattr(self, "positions", [])
+            for i in getattr(self.positions_panel, "ids"):
+                pos_row = getattr(self.positions_panel, f"pos_row{i}")
+                p = {}
+                p['node1'] = pos_row.node1.GetValue()
+                p['rel'] = pos_row.rel.GetValue()
+                p['node2'] = pos_row.node2.GetValue()
+                p['by'] = pos_row.by.GetValue()
+                p['dist'] = pos_row.pos.GetValue()
+                self.positions.append(p)
 
-        # TODO here create the YAML file and store it somewhere
-        # TODO add a button to save and export the query
+            data = {'features': self.features,
+                    'relations': self.relations,
+                    'positions': self.positions,
+                    'show_sent': self.cb_sentences.GetValue(),
+                    'show_conllu': self.cb_conllu.GetValue(),
+                    'show_trees': self.cb_trees.GetValue()}
+
+        else:
+            # check if a path was selected
+            if not hasattr(self.import_panel, "query_path"):
+                print("please, select a path for the query you want to import")
+            else:
+                # import yaml file
+                data = import_export_query.import_q(self.import_panel.query_path)
+                # check if it is a valid file
+                if not data:
+                    print("error: please, check the YAML file")
+            print("bravo bro")
 
         # results object
         setattr(self, "res", search.QueryResults())
-        self.res.process(tb=self.treebank, features=self.features, relations=self.relations,
-                         positions=self.positions, show_sent=self.cb_sentences.GetValue(),
-                         show_conllu=self.cb_conllu.GetValue(), show_trees=self.cb_trees.GetValue())
+        if data:
+            self.res.process(tb=self.treebank, **data)
+        else:
+            self.res.abort = True
 
         # show results
         if not self.res.abort:
-            setattr(self, "res_frame", results.ResultsFrame(self, self.res))
+            setattr(self, "res_frame", results.ResultsFrame(self, self.res, data))
 
     def reset(self, event, delete_everything=True):
         # defining the lists of objects to be deleted
