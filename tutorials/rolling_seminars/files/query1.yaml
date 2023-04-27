@@ -1,0 +1,28 @@
+features:
+  obj:
+    deprel: obj
+    optional: false
+    upos: 'NOUN'
+  subj:
+    deprel: nsubj
+    optional: false
+    upos: NOUN
+  verb:
+    optional: false
+    upos: VERB
+positions:
+- by: ''
+  dist: ''
+  node1: ''
+  node2: ''
+  rel: ''
+relations:
+- node1: verb
+  node2: subj
+  rel: is parent of
+- node1: verb
+  node2: obj
+  rel: is parent of
+show_conllu: true
+show_sent: true
+show_trees: false

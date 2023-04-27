@@ -1,0 +1,21 @@
+features:
+  nice:
+    lemma: nice
+    optional: false
+  word:
+    ? ''
+    : ''
+    optional: false
+positions:
+- by: ''
+  dist: ''
+  node1: ''
+  node2: ''
+  rel: ''
+relations:
+- node1: word
+  node2: nice
+  rel: is parent of
+show_conllu: true
+show_sent: true
+show_trees: false

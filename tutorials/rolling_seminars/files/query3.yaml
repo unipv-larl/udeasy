@@ -1,0 +1,21 @@
+features:
+  rel:
+    deprel: acl:relcl
+    optional: false
+  subj-obj:
+    deprel: '[nsubj, obj]'
+    optional: false
+    upos: [NOUN, PRON]
+positions:
+- by: ''
+  dist: ''
+  node1: ''
+  node2: ''
+  rel: ''
+relations:
+- node1: subj-obj
+  node2: rel
+  rel: is parent of
+show_conllu: true
+show_sent: true
+show_trees: false
