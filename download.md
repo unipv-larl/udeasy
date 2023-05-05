@@ -1,8 +1,8 @@
 # Download UDeasy
 
-Latest release: 1.1.1
+Latest release: 1.2.0
 
-Latest stable release: 1.1.1
+Latest stable release: 1.2.0
 
 Check the [changelog](changelog.md) to see in detail all the changes to this project.
 

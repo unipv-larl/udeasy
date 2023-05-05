@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.0] - 2023-4-26
+
+### Added
+
+- It is now possible to import and export a query formatted in YAML
+
+### Fixed
+
+- Correction of a bug in the function `match_condition`
+
+***
+
 ## [1.1.1] - 2022-12-12
 
 ### Fixed
