@@ -8,6 +8,16 @@ Check the [changelog](changelog.md) to see in detail all the changes to this pro
 
 ---
 
+## Release 1.2.0
+
+|             |                                                                                                                |
+|-------------|----------------------------------------------------------------------------------------------------------------|
+| **Ubuntu**  | [Download deb package](https://github.com/unipv-larl/udeasy/releases/download/v1.2.0/udeasy_1.2.0-2_amd64.deb) |
+| **Windows** | [Download the installer](https://github.com/unipv-larl/udeasy/releases/download/v1.2.0/udeasy-1.2.0-installer.exe)    |
+| **MacOS**   | [Download the dmg file](https://github.com/unipv-larl/udeasy/releases/download/v1.2.0/udeasy_1.2.0.dmg)            |
+
+---
+
 ## Release 1.1.1
 
 |             |                                                                                                                |
