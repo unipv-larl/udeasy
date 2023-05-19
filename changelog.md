@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.1] - 2023-5-19
+
+### Fixed
+
+- Correction of a bug in the Windows version
+
 ## [1.2.0] - 2023-4-26
 
 ### Added
