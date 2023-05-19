@@ -17,7 +17,7 @@ class ConlluError(Exception):
 
 
 def validate(file_treebank: str) -> str:
-    with open(file_treebank) as file:
+    with open(file_treebank, encoding="utf8") as file:
         lines = [l.strip() for l in file.readlines()]
 
     blanks = 1
